@@ -1,0 +1,3630 @@
+/*
+ * Author       : sathiya.jothi_zohotest
+ * Generated on : 24-Aug-2023 11:01:38
+ * Version      : 1.0
+ */
+ application "Billing Automation New"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "IST"
+ 	time format = "24-hr"
+ 	section Org_Details
+	{
+		displayname= "Org Details"
+		form Org_Details
+		{
+			displayname = "Org Details"
+			success message = "Data Added Successfully!"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Org_ID
+			(
+				type = number
+				displayname = "OrgID"
+	 			row = 1
+	 			column = 1   
+				width = 200px
+			)
+			Org_Name
+			(
+    			type = text
+				displayname = "Org Name"
+	 			row = 1
+	 			column = 1   
+				width = 200px
+			)
+			Authtoken
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = 200px
+			)
+			Client_ID
+			(
+    			type = text
+				displayname = "Client ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Client_Secret
+			(
+    			type = text
+				displayname = "Client Secret"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Access_Token
+			(
+    			type = text
+				displayname = "Access Token"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Refresh_token
+			(
+    			type = text
+				displayname = "Refresh token"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			EnabledTags
+			(
+    			type = checkbox
+				displayname = "EnabledTags?"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		summary Org_Details_Report
+		{
+			displayName = "Org Details Report"
+			show all rows from Org_Details    
+			(
+				Org_ID as "OrgID"
+				Org_Name as "Org Name"
+				custom action "Create Subscription"
+				(
+	  			workflow = Create_Subscription
+				show action in edit record menu = true
+				column header = "Create Subscription"
+				success message = ""
+				)
+				custom action "Create Project"
+				(
+	  			workflow = CreateProject
+				show action in edit record menu = true
+				column header = "Create Project"
+				)
+				custom action "Add Timelogs"
+				(
+	  			workflow = AddTimelogs
+				show action in edit record menu = true
+				column header = "Add Timelogs"
+				)
+				custom action "Invoice Timesheets"
+				(
+	  			workflow = InvoiceTimesheets1
+				show action in edit record menu = true
+				column header = "Invoice Timesheets"
+				)
+				custom action "Create Quotes"
+				(
+	  			workflow = CreateQuotes
+				show action in edit record menu = true
+				column header = "Create Quotes"
+				)
+				custom action "Send Quotes"
+				(
+	  			workflow = SendQuotes
+				show action in edit record menu = true
+				column header = "Send Quotes"
+				)
+				custom action "Accept or Decline Quotes"
+				(
+	  			workflow = AcceptOrDeclineQuotes
+				show action in edit record menu = true
+				column header = "Accept or Decline Quotes"
+				)
+				custom action "Invoice Quotes"
+				(
+	  			workflow = InvoiceQuotes
+				show action in edit record menu = true
+				column header = "Invoice Quotes"
+				)
+				custom action "Create Creditnotes"
+				(
+	  			workflow = CreateCreditnotes
+				show action in edit record menu = true
+				column header = "Create Creditnotes"
+				)
+				custom action "Invoice creditnotes"
+				(
+	  			workflow = InvoiceCreditnotes
+				show action in edit record menu = true
+				column header = "Invoice creditnotes"
+				)
+				custom action "Record Payments"
+				(
+	  			workflow = RecordPayments
+				show action in edit record menu = true
+				column header = "Record Payments"
+				)
+				custom action "send Invoice"
+				(
+	  			workflow = sendInvoice
+				show action in edit record menu = true
+				column header = "send Invoice"
+				)
+				custom action "Void Invoice"
+				(
+	  			workflow = VoidInvoice
+				show action in edit record menu = true
+				column header = "Void Invoice"
+				)
+				custom action "Writeoff Invoice"
+				(
+	  			workflow = writeoffInvoice
+				show action in edit record menu = true
+				column header = "Writeoff Invoice"
+				)
+				custom action "UpgradeSubscription"
+				(
+	  			workflow = CheckConnection
+				show action in view header = true
+				show action in edit record menu = true
+				column header = "UpgradeSubscription"
+				success message = ""
+				)
+				custom action "CancelSubscription"
+				(
+	  			workflow = CancelSubscription
+				show action in view header = true
+				show action in edit record menu = true
+				column header = "CancelSubscription"
+				success message = ""
+				)
+			)
+			options
+			(
+				display rows = 10
+				display records per row = 2
+			)
+			quickview
+			(
+				layout
+				(
+		 			type = -2
+	     			recordsperrow = 2
+					datablock1
+					(
+						layout type = -2
+		     			title = "Overview"
+						fields
+						(
+							Org_ID as "OrgID"
+							Org_Name as "Org Name"
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    	 			)
+							record
+							(
+								Edit   	   
+								"Create Subscription"
+								"UpgradeSubscription"
+								"CancelSubscription"
+								"Create Project"
+								"Add Timelogs"
+								"Invoice Timesheets"
+								"Create Quotes"
+								"Send Quotes"
+								"Accept or Decline Quotes"
+								"Invoice Quotes"
+								"Create Creditnotes"
+								"Invoice creditnotes"
+								"Record Payments"
+								"send Invoice"
+								"Void Invoice"
+								"Writeoff Invoice"
+								Delete   	   
+								Duplicate   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 2
+					datablock1
+					(
+						layout type = -2
+		     			title = "Overview"
+						fields
+						(
+							Org_ID as "OrgID"
+							Org_Name as "Org Name"
+				"Create Subscription"
+				"UpgradeSubscription"
+				"CancelSubscription"
+				"Create Project"
+				"Add Timelogs"
+				"Invoice Timesheets"
+				"Create Quotes"
+				"Send Quotes"
+				"Accept or Decline Quotes"
+				"Invoice Quotes"
+				"Create Creditnotes"
+				"Invoice creditnotes"
+				"Record Payments"
+				"send Invoice"
+				"Void Invoice"
+				"Writeoff Invoice"
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Reporting_Tags
+	{
+		displayname= "Reporting Tags"
+		form Reporting_Tags
+		{
+			displayname = "Reporting Tags"
+			success message = "Reporting Tag Added Successfully"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			orgid
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			tagid
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			tagname
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			optionid
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			optionname
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list All_Reporting_Tags
+		{
+			displayName = "All Reporting Tags"
+			show all rows from Reporting_Tags    
+			(
+				orgid
+				tagid
+				tagname
+				optionid
+				optionname
+			)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+						layout type = -1
+						fields
+						(
+							orgid
+							tagid
+							tagname
+							optionid
+							optionname
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+						layout type = -2
+						fields
+						(
+							orgid
+							tagid
+							tagname
+							optionid
+							optionname
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+		 functions
+		 {
+			 Deluge
+			 {
+				 map addTaxDetails(map customer, string orgID, string oauthtoken)
+         {
+         	//customer = subscription.get("customer");
+         	//info " Entered addtaxDetails";
+         	edition = thisapp.Utils.getOrgVersion(orgID,oauthtoken);
+         	taxable = thisapp.Random.isTaxsEnabled(orgID,oauthtoken);
+         	//info edition;
+         	if(taxable)
+         	{
+         		if(edition == "india")
+         		{
+         			customer = thisapp.Random.getRandomGSTtreatment(customer);
+         		}
+         		else if(edition == "us" || edition == "canada" || edition == "australia")
+         		{
+         			customer = thisapp.Random.addTaxID(orgID,oauthtoken,customer);
+         		}
+         		else if(edition == "uae")
+         		{
+         			customer = thisapp.Random.getUAETax(orgID,customer);
+         		}
+         		else if(edition == "saudiarabia")
+         		{
+         			customer = thisapp.Random.getSaudiTax(orgID,customer);
+         		}
+         	}
+         	// 	info "Exiting addtaxDetails" + customer;
+         	return customer;
+         }
+				 string AllActions(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	content = "";
+         	info "subscriptions actions";
+         	info "creating subscriptions";
+         	content = content + thisapp.populateCreateSubscription(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "cancelling subscriptions";
+         	content = content + thisapp.populateCancelSubscription(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "upgrading existing subscriptions";
+         	content = content + thisapp.populateUpgradeSubscription(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "quote actions";
+         	info "creating quotes";
+         	content = content + thisapp.populateQuotes(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "marking as sent";
+         	content = content + thisapp.populateQuotes_markAsSent(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "accept or decline quotes";
+         	content = content + thisapp.populateQuotes_AcceptOrDecline(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "quotes to invoice";
+         	content = content + thisapp.PopulateQuoteToInvoice(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "invoice actions";
+         	info "marking invoices as sent";
+         	content = content + thisapp.populateInvoice_markAssent(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "writting off sent invoices";
+         	content = content + thisapp.populateInvoice_writeOff(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "voiding sent invoices";
+         	content = content + thisapp.populateInvoice_void(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "recording payments for unpaid invoices";
+         	content = content + thisapp.populateRecordPayment(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "credit notes actions";
+         	info "creating credit notes";
+         	content = content + thisapp.populateCreditNotes(orgID,Refresh_token,Client_ID,Client_Secret);
+         	info "invoicing credit notes";
+         	content = content + thisapp.populateCNtoInvoice(orgID,Refresh_token,Client_ID,Client_Secret);
+         	// 	info content ;
+         	return content;
+         }
+				 map cancelSubscription(string orgID, string oauthtoken, map randomSubscription)
+         {
+         	info " Call to Cancel Subscription";
+         	if(randomSubscription != null && !randomSubscription.isEmpty())
+         	{
+         		randomSubscriptionId = randomSubscription.get("subscription_id");
+         		//info randomSub scriptionId;
+         		params = Map();
+         		params.put("cancel_at_end",false);
+         		params.put("reason","cancelling...");
+         		// 		reason = thisapp.Random.getCancelReason(orgID,oauthtoken);
+         		// 		params.put("JSONString",reason);
+         		response = thisapp.Utils.executeURL("post","subscriptions/" + randomSubscriptionId + "/cancel",params,orgID,oauthtoken);
+         		if(response != null)
+         		{
+         			info response.get("message");
+         			return response;
+         		}
+         	}
+         	return "";
+         }
+				 bool checkConnection(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	// 	Refresh_token = input.Refresh_token;
+         	// 	Client_ID = input.Client_ID;
+         	// 	Client_Secret = input.Client_Secret;
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	headerMap = Map();
+         	// 	headerMap.put("Authorization","Zoho-oauthtoken " + oauthtoken);
+         	// 	response = getUrl("https://billing.localzoho.com/api/v3/plans?organization_id=" + orgID,headerMap);
+         	response = thisapp.Utils.executeURL("get","plans",null,orgID.toString(),oauthtoken);
+         	connection = false;
+         	if(response.get("code") == 0)
+         	{
+         		connection = true;
+         	}
+         	return connection;
+         }
+				 map createSubscription(string orgID, string oauthtoken, map randomPlan)
+         {
+         	info "creating subscription with selected plan";
+         	if(randomPlan.isEmpty())
+         	{
+         		return "";
+         	}
+         	// 	user = thisapp.Random.getUser(orgID,oauthtoken);
+         	user = thisapp.Random.getExistingCustomers(orgID,oauthtoken);
+         	// 	info user;
+         	subscription = Map();
+         	customerObj = null;
+         	if(user.containKey("customer_id"))
+         	{
+         		subscription.put("customer_id",user.get("customer_id"));
+         		customerObj = thisapp.Utils.getCustomerDetails(orgID,oauthtoken,user.get("customer_id"));
+         		//info "customer map of existing customer below";
+         		//info customerObj;
+         		// 		customerObj = customerObj.get("customer");
+         	}
+         	else
+         	{
+         		customer = Map();
+         		customer = thisapp.Random.createUser(user);
+         		// 		customer = thisapp.addTaxDetails(customer,orgID,oauthtoken);
+         		// 		info customer ;
+         		//info "tax ready customer --";
+         		//info customer;
+         		subscription.put("customer",customer);
+         		//info subscription;
+         		customerObj = subscription.get("customer");
+         		info customerObj;
+         	}
+         	// 	info "customer object : ---> "+customerObj;
+         	// 	info "subscription map before add plan and addon-- ";
+         	// 	info subscription;
+         	thisapp.Random.getRandomPlan(orgID,oauthtoken,randomPlan,subscription);
+         	// 	info "subscription map after add plan and addon--";
+         	// 	info subscription;
+         	// 	isOnline = subscription.get("auto_collect");
+         	isOnline = thisapp.Random.getBoolean();
+         	if(isOnline)
+         	{
+         		thisapp.Random.getCustomerCard(customerObj,subscription);
+         	}
+         	//info "subscription map before creating subscription";
+         	//info subscription;
+         	// 	response = postUrl("https://billing.localzoho.com/api/v3/subscriptions?organization_id=" + orgID,subscription.toString(),headerMap);
+         	//info " subscripton creation response" + " " + response;
+         	response = thisapp.Utils.executeURL("post","subscriptions",subscription,orgID,oauthtoken);
+         	if(response != null)
+         	{
+         		info response.get("message");
+         		return response.get("subscription");
+         	}
+         	return null;
+         }
+				 map editSubscription(string orgID, string oauthtoken)
+         {
+         	info " Call to edit subscription";
+         	subscriptions = thisapp.Utils.getSubscriptionList(orgID,oauthtoken);
+         	if(subscriptions.isEmpty() || subscriptions == "")
+         	{
+         		return "";
+         	}
+         	randomSubscription = subscriptions.get(thisapp.Random.getInt(subscriptions.size()));
+         	//info randomSubscription;
+         	randomSubscriptionId = randomSubscription.get("subscription_id");
+         	// Get Subscription Details
+         	response = thisapp.Utils.executeURL("get","subscriptions/" + randomSubscriptionId,null,orgID,oauthtoken);
+         	//info response;
+         	if(response == null)
+         	{
+         		info "random subscription not fount to edit";
+         		return "";
+         	}
+         	currentSubs = response.getJSON("subscription");
+         	productID = currentSubs.getJSON("product_id");
+         	// Get random plan
+         	randomPlan = thisapp.Random.getPlanFromProduct(orgID,oauthtoken,productID);
+         	//info randomPlan; 
+         	planMap = Map();
+         	planMap.put("plan_code",randomPlan.get("plan_code"));
+         	// Update it
+         	params = Map();
+         	params.put("plan",planMap);
+         	includeAddons = thisapp.Random.getBoolean();
+         	includeCoupon = thisapp.Random.getBoolean();
+         	alreadyHasCoupon = currentSubs.get("coupons").size() > 0;
+         	addonMap = Map();
+         	randomAddon = thisapp.Random.getAddonFromPlan(orgID,oauthtoken,productID,randomPlan.get("plan_code"));
+         	addonList = List();
+         	if(randomAddon != null)
+         	{
+         		addonMap.put("addon_code",randomAddon.get("addon_code"));
+         		addonList.add(addonMap);
+         		if(includeAddons)
+         		{
+         			params.put("addons",addonList);
+         		}
+         	}
+         	if(includeCoupon && !alreadyHasCoupon)
+         	{
+         		randomCoupon = thisapp.Random.getCouponFromPlan(orgID,oauthtoken,productID);
+         		if(randomCoupon != null)
+         		{
+         			params.put("coupon_code",randomCoupon.get("coupon_code"));
+         		}
+         	}
+         	//info "included coupons : " + includeCoupon + " included addons : " + includeAddons;
+         	headerMap = Map();
+         	//headerMap.put("X-com-zoho-subscriptions-organizationid",orgID);
+         	// 	headerMap.put("Authorization","Zoho-oauthtoken " + oauthtoken);
+         	// 	headerMap.put("X-HTTP-Method-Override","PUT");
+         	//info "sub id:" + randomSubscriptionId;
+         	//info params;
+         	// 	response = postUrl("https://billing.localzoho.com/api/v1/subscriptions/" + randomSubscriptionId + "?organization_id=" + orgID,params.toString(),headerMap);
+         	//info response;
+         	response = thisapp.Utils.executeURL("put","subscriptions/" + randomSubscriptionId,params,orgID,oauthtoken);
+         	if(response != null)
+         	{
+         		info response.get("message");
+         		return response;
+         	}
+         	return "";
+         }
+				 void fillReportingTags()
+         {
+         }
+				 string generateAccesstoken(string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	map = Map();
+         	map.put("refresh_token",Refresh_token);
+         	map.put("client_id",Client_ID);
+         	map.put("client_secret",Client_Secret);
+         	map.put("grant_type","refresh_token");
+         	response = postUrl("https://accounts.localzoho.com/oauth/v2/token",map);
+         	info response.get("access_token");
+         	return response.get("access_token");
+         }
+				 string populateCancelSubscription(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(input.Refresh_token,input.Client_ID,input.Client_Secret);
+         	subscriptions = thisapp.Utils.getSubscriptionList(orgID.toString(),oauthtoken);
+         	if(subscriptions == null || subscriptions.isempty())
+         	{
+         		info "no subscriptions available";
+         		return "";
+         	}
+         	info "Cancelling ...";
+         	subscriptionSize = subscriptions.size();
+         	cancelCount = toNumber(randomnumber(15,30));
+         	if(subscriptionSize < cancelCount)
+         	{
+         		cancelCount = thisapp.Random.getInt(subscriptionSize);
+         	}
+         	if(cancelCount == null)
+         	{
+         		cancelCount = 0;
+         	}
+         	sampleList = rightpad("",cancelCount).toList("");
+         	content = "";
+         	content = content + "<br/>intially<br/>";
+         	info cancelCount;
+         	for each  sample in sampleList
+         	{
+         		if(subscriptions != null)
+         		{
+         			randomSubscription = subscriptions.get(thisapp.Random.getInt(subscriptionSize));
+         			//info randomSubscription;
+         			cancelledSubscription = thisapp.cancelSubscription(orgID + "",oauthtoken,randomSubscription);
+         			//info cancelledSubscription;
+         			if(!cancelledSubscription.isEmpty())
+         			{
+         				cs = cancelledSubscription.getJSON("subscription");
+         				if(!cs.isEmpty())
+         				{
+         					content = content + "<a href='https://subscriptions.localzoho.com/switch?organization_id=" + orgID + "&redirect_url=/app#/subscriptions/" + cs.getJSON("subscription_id") + "'>" + cs.getJSON("customer").getJSON("display_name") + "</a><br/>";
+         				}
+         				else
+         				{
+         					content = "<br/>Subscription Not Cancelled<br/>";
+         				}
+         			}
+         		}
+         	}
+         	//info content;
+         	return content;
+         }
+				 string populateCNtoInvoice(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	dummyList = thisapp.Random.createDummyList(0,10);
+         	content = "";
+         	CNlist = thisapp.Utils.getResourceByStatus(orgID.toString(),oauthtoken,"creditnotes","Open");
+         	if(CNlist.isEmpty())
+         	{
+         		info "No credit notes available to invoice";
+         		return "";
+         	}
+         	for each  dummy in dummyList
+         	{
+         		selected = thisapp.Random.getInt(CNlist.size());
+         		info CNlist.size();
+         		info CNlist.get(selected);
+         		content = content + thisapp.Utils.CNtoInvoice(CNlist.get(selected),orgID.toString(),oauthtoken);
+         		CNlist.remove(selected);
+         	}
+         	return content;
+         }
+				 string populateCreateSubscription(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	info oauthtoken;
+         	// 	count = thisapp.Random.getInt(10);
+         	count = randomNumber(20,30);
+         	dummyList = rightpad("",count).toList("");
+         	content = "";
+         	content = content + " Subscriptions Created<br/>";
+         	plans = thisapp.Random.getPlans(orgID.toString(),oauthtoken);
+         	for each  dummy in dummyList
+         	{
+         		randomPlan = plans.get(thisapp.Random.getInt(plans.size()));
+         		subscription = thisapp.createSubscription(orgID + "",oauthtoken,randomPlan);
+         		// 		info subscription;
+         		if(!subscription.isEmpty())
+         		{
+         			info "Subscription created - Sub-ID : " + subscription.get("subscription_id");
+         			customer = subscription.get("customer");
+         			customerId = customer.get("customer_id");
+         			displayName = customer.get("display_name");
+         			content = content + "<a href='https://billing.localzoho.com/switch?organization_id=" + orgID + "&redirect_url=/app#/customers/" + customerId + "'>" + displayName + "</a><br/>";
+         		}
+         	}
+         	return content;
+         }
+				 string populateCreditNotes(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	dummyList = thisapp.Random.createDummyList(10,20);
+         	content = "";
+         	for each  dummy in dummyList
+         	{
+         		content = content + thisapp.Utils.createCreditNotes(orgID.toString(),oauthtoken);
+         	}
+         	return content;
+         }
+				 void populateCustomerPayments(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         }
+				 void populateData(int Org_ID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	content = "";
+         	checkConnection = thisapp.checkConnection(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         	if(checkConnection)
+         	{
+         		try 
+         		{
+         			content = content + thisapp.populateCancelSubscription(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error Cancel subscription " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error Cancel subscription " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateQuotes(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error create quotes " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error create quotes " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateCreditNotes(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error create credit note " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error create credit note " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateRecordPayment(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error record payment " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error record payment " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateQuotes_markAsSent(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error send quotes " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error send quotes " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateProjects(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error populate projects " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error populate projects " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateTimeLogs(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error populate timelogs " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error populate timelogs " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateQuotes_AcceptOrDecline(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error accept or decline quotes " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error accept or decline quotes " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateInvoice(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error Invoice timesheet " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error Invoice timesheet " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateInvoice_markAssent(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error send Invoice " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error send Invoice " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         		try 
+         		{
+         			content = content + thisapp.populateUpgradeSubscription(Org_ID,Refresh_token,Client_ID,Client_Secret);
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error Upgrade subscription " + Org_ID
+         				message :"<b> " + content + "</b>"
+         			]
+         		}
+         		catch (e)
+         		{
+         			sendmail
+         			[
+         				from :zoho.adminuserid
+         				to :"sathiya.jothi@zohotest.com"
+         				subject :"Error Upgrade subscription " + Org_ID
+         				message :"<b> " + e + "</b>"
+         			]
+         		}
+         		content = "";
+         	}
+         	else
+         	{
+         		sendmail
+         		[
+         			from :zoho.adminuserid
+         			to :"sathiya.jothi@zohotest.com"
+         			subject :"Error In Automation " + Org_ID
+         			message :"<b> check auth credentials</b>"
+         		]
+         	}
+         }
+				 string populateEditSubscription(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	// 	Refresh_token = input.Refresh_token;
+         	// 	Client_ID = input.Client_ID;
+         	// 	Client_Secret = input.Client_Secret;
+         	info "editing subscription";
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	info "editing subscription";
+         	content = "";
+         	editedSubscription = thisapp.editSubscription(orgID.toString(),oauthtoken);
+         	info editedSubscription;
+         	if(!editedSubscription.isEmpty())
+         	{
+         		es = editedSubscription.getJSON("subscription");
+         		content = content + "<br/>Subscription Edited<br/>";
+         		content = content + "<a href='https://subscriptions.localzoho.com/switch?organization_id=" + orgID + "&redirect_url=/app#/subscriptions/" + es.getJSON("subscription_id") + "'>" + es.getJSON("customer").getJSON("display_name") + "</a><br/>";
+         	}
+         	else
+         	{
+         		content = content + "<br/>Subscription Not Edited<br/>";
+         	}
+         	return content;
+         }
+				 string populateInvoice(int organizationID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	content = "";
+         	count = thisapp.Random.getInt(10);
+         	dummyList = rightpad("",count).toList("");
+         	response = thisapp.Utils.executeURL("get","projects/timeentries?page=1&per_page=25&filter_by=Status.Unbilled%2CDate.All&sort_column=task_name&sort_order=A&usestate=true",null,organizationID.toString(),oauthtoken);
+         	timeEntriesList = response.get("time_entries");
+         	if(timeEntriesList.isEmpty())
+         	{
+         		info "no time sheets available to invoice";
+         		return "";
+         	}
+         	content = "";
+         	for each  dummy in dummyList
+         	{
+         		random = thisapp.Random.getInt(timeEntriesList.size() - 1);
+         		timeEntry = timeEntriesList.get(random);
+         		content = content + thisapp.Utils.createInvoice(organizationID,timeEntry.get("customer_id"),oauthtoken);
+         		timeEntriesList.remove(random);
+         	}
+         	return content;
+         }
+				 string populateInvoice_markAssent(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	draftInvoiceList = thisapp.Utils.getResourceByStatus(orgID.toString(),oauthtoken,"invoices","Pending");
+         	content = "";
+         	invoiceIDlist = "";
+         	// 	info draftInvoiceList ;
+         	if(draftInvoiceList.isempty())
+         	{
+         		info "create more invoices as draft to mark as sent";
+         	}
+         	dummyList = thisapp.Random.createDummyList(15,20);
+         	for each  dummy in dummyList
+         	{
+         		if(draftInvoiceList.isempty())
+         		{
+         			break;
+         		}
+         		selected = thisapp.Random.getInt(draftInvoiceList.size() - 1);
+         		invoice = draftInvoiceList.get(selected);
+         		// 		info invoice;
+         		invoiceIDlist = invoiceIDlist + invoice.get("invoice_id") + ",";
+         		draftInvoiceList.remove(selected);
+         	}
+         	paramsMap = Map();
+         	paramsMap.put("invoice_ids",invoiceIDlist.removeLastOccurence(","));
+         	// 	info paramsMap;
+         	content = thisapp.Utils.ResourceStatusSent(orgID.toString(),oauthtoken,paramsMap,"invoices");
+         	info content;
+         	return content;
+         }
+				 string populateInvoice_void(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(input.Refresh_token,input.Client_ID,input.Client_Secret);
+         	sentInvoiceList = thisapp.Utils.getResourceByStatus(orgID.toString(),oauthtoken,"invoices","Sent");
+         	content = "";
+         	invoiceIDlist = "";
+         	info sentInvoiceList.size() + "\n";
+         	if(sentInvoiceList.isempty())
+         	{
+         		info "create more invoices as sent to void invoices";
+         	}
+         	dummyList = thisapp.Random.createDummyList(8,10);
+         	for each  dummy in dummyList
+         	{
+         		if(sentInvoiceList.isempty())
+         		{
+         			break;
+         		}
+         		selected = thisapp.Random.getInt(sentInvoiceList.size() - 1);
+         		selectedInvoice = sentInvoiceList.get(selected);
+         		if(selectedInvoice != null)
+         		{
+         			invoiceID = selectedInvoice.get("invoice_id");
+         			paramsMap = Map();
+         			paramsMap.put("reason","summa");
+         			content = content + thisapp.Utils.changeResourceStatus(orgID.toString(),oauthtoken,invoiceID,"invoices","void",paramsMap);
+         		}
+         		sentInvoiceList.remove(selected);
+         	}
+         	info content;
+         	return content;
+         }
+				 string populateInvoice_writeOff(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(input.Refresh_token,input.Client_ID,input.Client_Secret);
+         	sentInvoiceList = thisapp.Utils.getResourceByStatus(orgID.toString(),oauthtoken,"invoices","Sent");
+         	content = "";
+         	invoiceIDlist = "";
+         	info sentInvoiceList.size() + "\n";
+         	if(sentInvoiceList.isempty())
+         	{
+         		info "create more invoices as sent to write off";
+         	}
+         	dummyList = thisapp.Random.createDummyList(5,10);
+         	for each  dummy in dummyList
+         	{
+         		if(sentInvoiceList.isempty())
+         		{
+         			break;
+         		}
+         		selected = thisapp.Random.getInt(sentInvoiceList.size() - 1);
+         		selectedInvoice = sentInvoiceList.get(selected);
+         		if(selectedInvoice != null)
+         		{
+         			invoiceID = selectedInvoice.get("invoice_id");
+         			paramsMap = Map();
+         			paramsMap.put("writeoff_date",zoho.currentdate.toString("yyyy-MM-dd"));
+         			paramsMap.put("reason","summa");
+         			response = thisapp.Utils.executeURL("post","invoices/" + invoiceID + "/writeoff",paramsMap,orgID.toString(),oauthtoken);
+         			if(response != null)
+         			{
+         				content = content + response.get("message");
+         			}
+         		}
+         		sentInvoiceList.remove(selected);
+         	}
+         	info content;
+         	return content;
+         }
+				 string populateProjects(int organizationID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	count = randomNumber(15,20);
+         	dummyList = rightpad("",count).toList("");
+         	content = "";
+         	for each  dummy in dummyList
+         	{
+         		content = content + thisapp.Utils.createProject(organizationID.toString(),oauthtoken);
+         	}
+         	return content;
+         }
+				 string populateQuotes(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(input.Refresh_token,input.Client_ID,input.Client_Secret);
+         	// 	count = thisapp.Random.getInt(30);
+         	count = randomNumber(30,50);
+         	dummyList = rightpad("",count).toList("");
+         	content = "";
+         	for each  dummy in dummyList
+         	{
+         		content = content + thisapp.Utils.createQuotes(orgID.toString(),oauthtoken) + "\n\n";
+         	}
+         	info content;
+         	return content;
+         }
+				 string populateQuotes_AcceptOrDecline(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	// 	count = thisapp.Random.getInt(20);
+         	count = randomNumber(15,20);
+         	dummyList = rightpad("",count).toList("");
+         	content = "";
+         	quotesList = thisapp.Utils.getResourceByStatus(orgID.toString(),oauthtoken,"estimates","Sent");
+         	// 		info quotesList;
+         	info "Number of quotes in starting : " + quotesList.size();
+         	for each  dummy in dummyList
+         	{
+         		if(!quotesList.isempty())
+         		{
+         			selected = thisapp.Random.getInt(quotesList.size() - 1);
+         			// 			info selected;
+         			// 			info quotesList.get(selected);
+         			estimate = quotesList.get(selected);
+         			// 						info estimate;
+         			estimateID = estimate.get("estimate_id");
+         			// 			content = content + thisapp.Utils.AcceptOrDeclineQuotes(orgID.toString(),oauthtoken,quotesList.get(selected).get("estimate_id")) + "\n\n";
+         			if(thisapp.Random.getBoolean())
+         			{
+         				content = content + thisapp.Utils.changeResourceStatus(orgID.toString(),oauthtoken,estimateID,"estimates","accepted",null) + "\n\n";
+         				// 				info estimateID;
+         			}
+         			else
+         			{
+         				content = content + thisapp.Utils.changeResourceStatus(orgID.toString(),oauthtoken,estimateID,"estimates","declined",null) + "\n\n";
+         			}
+         			quotesList.remove(selected);
+         		}
+         		else
+         		{
+         			info "no quotes available...";
+         		}
+         	}
+         	info content;
+         	return content;
+         }
+				 string populateQuotes_markAsSent(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	// 	count = thisapp.Random.getInt(20);
+         	dummyList = thisapp.Random.createDummyList(20,30);
+         	content = "";
+         	quotesList = thisapp.Utils.getResourceByStatus(orgID.toString(),oauthtoken,"estimates","Draft");
+         	estimateIDlist = "";
+         	// 	info quotesList;
+         	for each  dummy in dummyList
+         	{
+         		// 		if(!quotesList.isempty())
+         		// 		{
+         		// 			selected = thisapp.Random.getInt(quotesList.size() - 1);
+         		// 			estimate = quotesList.get(selected);
+         		// 			estimateID = estimate.get("estimate_id");
+         		// 			content = content + thisapp.Utils.changeResourceStatus(orgID.toString(),oauthtoken,estimateID,"estimates","sent") + "\n\n";
+         		// 			quotesList.remove(selected);
+         		// 		}
+         		if(!quotesList.isempty())
+         		{
+         			selected = thisapp.Random.getInt(quotesList.size() - 1);
+         			estimate = quotesList.get(selected);
+         			estimateIDlist = estimateIDlist + estimate.get("estimate_id") + ",";
+         			quotesList.remove(selected);
+         		}
+         	}
+         	paramsMap = Map();
+         	paramsMap.put("estimate_ids",estimateIDlist.removeLastOccurence(","));
+         	content = content + thisapp.Utils.ResourceStatusSent(orgID.toString(),oauthtoken,paramsMap,"estimates") + "\n\n";
+         	info content;
+         	return content;
+         }
+				 string PopulateQuoteToInvoice(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(input.Refresh_token,input.Client_ID,input.Client_Secret);
+         	content = "";
+         	// 	count = thisapp.Random.getInt(10);
+         	count = randomNumber(10,15);
+         	dummyList = rightpad("",count).toList("");
+         	response = thisapp.Utils.executeURL("get","estimates?page=1&per_page=200&filter_by=Status.Accepted",null,orgID.toString(),oauthtoken);
+         	// 	info response;
+         	estimatesList = response.get("estimates");
+         	if(estimatesList.isempty())
+         	{
+         		info "No quotes available to convert to invoice";
+         		return "";
+         	}
+         	for each  dummy in dummyList
+         	{
+         		selected = thisapp.Random.getInt(estimatesList.size());
+         		estimate = estimatesList.get(selected);
+         		if(estimate != null)
+         		{
+         			content = content + thisapp.Utils.QuotesToInvoice(orgID,oauthtoken,estimate.get("estimate_id")) + "\n";
+         			estimatesList.remove(selected);
+         		}
+         	}
+         	info content;
+         	return content;
+         }
+				 string populateReactivateSubscription(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	// 	Refresh_token = input.Refresh_token;
+         	// 	Client_ID = input.Client_ID;
+         	// 	Client_Secret = input.Client_Secret;
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	info " call to Reactivate subs";
+         	subscriptions = thisapp.Utils.getSubscriptions(orgID + "",oauthtoken,"cancelled","cancelled");
+         	subscriptionSize = subscriptions.size();
+         	upgradeCount = toNumber(randomnumber(5,10));
+         	if(upgradeCount < subscriptionSize)
+         	{
+         		upgradeCount = thisapp.Random.getInt(subscriptionSize);
+         	}
+         	if(upgradeCount == null)
+         	{
+         		upgradeCount = 0;
+         	}
+         	//upgradeCount = 0;
+         	sampleList = rightpad("",upgradeCount).toList("");
+         	content = "";
+         	content = content + "<br/>Subscriptions upgraded<br/>";
+         	for each  sample in sampleList
+         	{
+         		randomSubscription = subscriptions.get(thisapp.Random.getInt(subscriptionSize));
+         		//info "random sub";
+         		//info randomSubscription;
+         		upgradeSubscription = thisapp.upgradeSubscription(orgID + "",oauthtoken,randomSubscription);
+         		//info upgradeSubscription;
+         		if(!upgradeSubscription.isEmpty())
+         		{
+         			uS = upgradeSubscription.getJSON("subscription");
+         			if(!uS.isEmpty())
+         			{
+         				content = content + "<a href='https://subscriptions.localzoho.com/switch?organization_id=" + orgID + "&redirect_url=/app#/subscriptions/" + uS.getJSON("subscription_id") + "'>" + uS.getJSON("customer").getJSON("display_name") + "</a><br/>";
+         			}
+         		}
+         	}
+         	return content;
+         }
+				 string populateRecordPayment(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	sentInvoiceList = thisapp.Utils.getResourceByStatus(orgID.toString(),oauthtoken,"invoices","Unpaid");
+         	content = "";
+         	if(sentInvoiceList.isempty())
+         	{
+         		info "create more invoices as send to record payment";
+         	}
+         	dummyList = thisapp.Random.createDummyList(15,20);
+         	for each  dummy in dummyList
+         	{
+         		if(sentInvoiceList.isempty())
+         		{
+         			break;
+         		}
+         		selected = thisapp.Random.getInt(sentInvoiceList.size() - 1);
+         		invoice = sentInvoiceList.get(selected);
+         		// 		info invoice;
+         		if(invoice != null)
+         		{
+         			paramsMap = Map();
+         			paramsMap.put("customer_id",invoice.get("customer_id"));
+         			invoicelist = List();
+         			invoiceMap = Map();
+         			invoiceMap.put("invoice_id",invoice.get("invoice_id"));
+         			invoiceMap.put("amount_applied",invoice.get("balance"));
+         			invoicelist.add(invoiceMap);
+         			sentInvoiceList.remove(selected);
+         			paramsMap.put("invoices",invoicelist);
+         			paramsMap.put("amount",invoice.get("balance"));
+         			paramsMap.put("payment_mode","cash");
+         			paramsMap.put("date",zoho.currentdate.toString("yyyy-MM-dd"));
+         			response = thisapp.Utils.executeURL("post","customerpayments",paramsMap,orgID.toString(),oauthtoken);
+         			if(response != null)
+         			{
+         				content = content + response.get("message");
+         			}
+         		}
+         	}
+         	info content;
+         	return content;
+         }
+				 void populateSalesperson(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	// 	Refresh_token = input.Refresh_token;
+         	// 	Client_ID = input.Client_ID;
+         	// 	Client_Secret = input.Client_Secret;
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	count = toNumber(randomnumber(10,15));
+         	//count = 2;
+         	//info count;
+         	dummyList = rightpad("",count).toList("");
+         	//info dummyList;
+         	for each  dummy in dummyList
+         	{
+         		user = thisapp.Random.getRandomUser(orgID + "");
+         		name = user.get("name");
+         		info name.get("first");
+         		firstName = thisapp.Utils.upperCaseWords(name.get("first"));
+         		if(!name.get("last").isEmpty())
+         		{
+         			lastName = thisapp.Utils.upperCaseWords(name.get("last"));
+         		}
+         		salesPerson = Map();
+         		salesPerson.put("salesperson_name",firstName + " " + lastName);
+         		salesPerson.put("salesperson_email",user.get("email"));
+         		// 		headerMap = Map();
+         		// 		headerMap.put("Authorization","Zoho-oauthtoken " + oauthtoken);
+         		//info "subscription map before creating subscription";
+         		//info salesPerson;
+         		// 		response = postUrl("https://billing.localzoho.com/api/v1/salespersons?organization_id=" + orgID,salesPerson.toString(),headerMap);
+         		response = thisapp.Utils.executeURL("post","salespersons",salesPerson,orgID.toString(),oauthtoken);
+         		//info response;
+         	}
+         }
+				 string populateTimeLogs(int organizationID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	content = "";
+         	count = thisapp.Random.getInt(10);
+         	dummyList = rightpad("",count).toList("");
+         	response = thisapp.Utils.executeURL("get","projects?page=1&per_page=25&filter_by=Status.All&sort_column=created_time&sort_order=D&usestate=true",null,organizationID.toString(),oauthtoken);
+         	projectList = response.get("projects");
+         	content = "";
+         	for each  dummy in dummyList
+         	{
+         		content = content + thisapp.Utils.createTimeLog(organizationID,projectList.get(thisapp.Random.getInt(projectList.size() - 1)),oauthtoken);
+         	}
+         	return content;
+         }
+				 string populateUpgradeSubscription(int orgID, string Refresh_token, string Client_ID, string Client_Secret)
+         {
+         	// 	Refresh_token = input.Refresh_token;
+         	// 	Client_ID = input.Client_ID;
+         	// 	Client_Secret = input.Client_Secret;
+         	oauthtoken = thisapp.generateAccesstoken(Refresh_token,Client_ID,Client_Secret);
+         	info " call to Upgrade function";
+         	subscriptions = thisapp.Utils.getSubscriptionList(orgID + "",oauthtoken);
+         	if(subscriptions != null)
+         	{
+         		subscriptionSize = subscriptions.size();
+         		upgradeCount = toNumber(randomnumber(5,10));
+         		if(upgradeCount < subscriptionSize)
+         		{
+         			upgradeCount = thisapp.Random.getInt(subscriptionSize);
+         		}
+         		if(upgradeCount == null)
+         		{
+         			upgradeCount = 0;
+         		}
+         		//upgradeCount = 0;
+         		sampleList = rightpad("",upgradeCount).toList("");
+         		content = "";
+         		content = content + "<br/>Subscriptions upgraded<br/>";
+         		for each  sample in sampleList
+         		{
+         			randomSubscription = subscriptions.get(thisapp.Random.getInt(subscriptionSize));
+         			//info "random sub";
+         			//info randomSubscription;
+         			upgradeSubscription = thisapp.upgradeSubscription(orgID.toString(),oauthtoken,randomSubscription);
+         			//info upgradeSubscription;
+         			if(!upgradeSubscription.isEmpty())
+         			{
+         				uS = upgradeSubscription.getJSON("subscription");
+         				if(!uS.isEmpty())
+         				{
+         					content = content + "<a href='https://subscriptions.localzoho.com/switch?organization_id=" + orgID + "&redirect_url=/app#/subscriptions/" + uS.getJSON("subscription_id") + "'>" + uS.getJSON("customer").getJSON("display_name") + "</a><br/>";
+         				}
+         			}
+         		}
+         	}
+         	return content;
+         }
+				 map upgradeSubscription(string orgID, string oauthtoken, map randomSubscription)
+         {
+         	if(randomSubscription.isEmpty())
+         	{
+         		info "no subscription available to upgrade";
+         		return "";
+         	}
+         	randomSubscriptionId = randomSubscription.getJSON("subscription_id");
+         	info randomSubscriptionId;
+         	response = thisapp.Utils.executeURL("get","subscriptions/" + randomSubscriptionId,null,orgID,oauthtoken);
+         	currentSubscription = response.getJSON("subscription");
+         	// 	info currentSubscription;
+         	if(!currentSubscription.getJSON("end_of_term"))
+         	{
+         		productID = currentSubscription.getJSON("product_id");
+         		currentPlanPrice = currentSubscription.getJSON("plan").getJSON("price");
+         		//info "product_id = "+ productID;
+         		//info "current plan price = "+currentPlanPrice ;
+         		upgradePlan = thisapp.Random.getHigherPlan(orgID,oauthtoken,productID,currentPlanPrice);
+         		//info "upgrade plan";
+         		//info upgradePlan;
+         		if(!upgradePlan.isEmpty())
+         		{
+         			params = Map();
+         			params.put("customer_id",currentSubscription.getJSON("customer_id"));
+         			params.put("plan",upgradePlan);
+         			// 			headerMap = Map();
+         			// 			headerMap.put("X-com-zoho-subscriptions-organizationid",orgID);
+         			// 			headerMap.put("Authorization","Zoho-oauthtoken " + oauthtoken);
+         			// 			headerMap.put("X-HTTP-Method-Override","PUT");
+         			// 			response = postUrl("https://billing.localzoho.com/api/v1/subscriptions/" + randomSubscriptionId,params.toString(),headerMap);
+         			response = thisapp.Utils.executeURL("put","subscriptions/" + randomSubscriptionId,params,orgID,oauthtoken);
+         			if(response != null)
+         			{
+         				info response.get("message");
+         				return response;
+         			}
+         		}
+         	}
+         	info "plan not upgraded";
+         	return "";
+         }
+				 map Random.addTaxID(string orgID, string oauthtoken, map sourceMap)
+         {
+         	response = thisapp.Utils.executeURL("get","settings/taxes",null,orgID,oauthtoken);
+         	taxList = Map();
+         	taxList = response.get("taxes");
+         	taxID = Map();
+         	taxID = taxList.get(thisapp.Random.getInt(taxList.size())).get("tax_id");
+         	//info taxID;
+         	//customer= Map();
+         	sourceMap.put("tax_id",taxID);
+         	//info customer;
+         	return sourceMap;
+         }
+				 map Random.addTaxIdForGLOBALEdition(string orgId, string oauthtoken, map sourceMap)
+         {
+         	response = thisapp.Utils.executeURL("get","https://billing.localzoho.com/api/v1/settings/taxes",null,orgId,oauthtoken);
+         	taxList = Map();
+         	taxList = response.get("taxes");
+         	taxID = Map();
+         	taxID = taxList.get(thisapp.Random.getInt(taxList.size())).get("tax_id");
+         	//info taxID;
+         	//customer= Map();
+         	sourceMap.put("tax_id",taxID);
+         	//info customer;
+         	return sourceMap;
+         }
+				 map Random.addTaxIDForIndianEdition(string orgID, string oauthtoken, map randomPlan, map subscription, map plan)
+         {
+         	response = null;
+         	customer = Map();
+         	customer = subscription.get("customer");
+         	gstTreatment = customer.get("gst_treatment");
+         	itemTaxList = List();
+         	itemTaxList = randomPlan.get("item_tax_preferences");
+         	//info gstTreatment;
+         	//info itemTaxList;
+         	taxMap = Map();
+         	if(gstTreatment == "overseas")
+         	{
+         		taxMap = itemTaxList.get(0);
+         	}
+         	else if(gstTreatment == "business_sez")
+         	{
+         		//The tax rate for supplies to SEZ when you have a Letter of Undertaking/Bond should be IGST 0%.
+         		taxMap.put("tax_id","764102000000185222");
+         		//764102000000185222 = IGST0% tax id.
+         	}
+         	else
+         	{
+         		paramsMap = Map();
+         		paramsMap.put("place_of_supply",customer.get("place_of_contact"));
+         		response = thisapp.Utils.executeURL("get","taxrates/fromcontacts?",paramsMap,orgID,oauthtoken);
+         		taxRates = Map();
+         		taxRates = response.get("tax_rates");
+         		if(!itemTaxList.isEmpty())
+         		{
+         			if(taxRates.get("tax_specification") == "inter")
+         			{
+         				taxMap = itemTaxList.get(0);
+         			}
+         			else
+         			{
+         				taxMap = itemTaxList.get(1);
+         			}
+         		}
+         	}
+         	plan.put("tax_id",taxMap.get("tax_id"));
+         	return plan;
+         }
+				 map Random.addTaxIDForSubscription(string orgID, string oauthtoken, map subscription, map fullMap, map mainMap)
+         {
+         	isTaxable = fullMap.get("is_taxable");
+         	edition = thisapp.Utils.getOrgVersion(orgID,oauthtoken);
+         	if(mainMap.containKey("addon_code"))
+         	{
+         		code = mainMap.get("addon_code");
+         	}
+         	else if(mainMap.containKey("plan_code"))
+         	{
+         		code = mainMap.get("plan_code");
+         	}
+         	if(isTaxable == true)
+         	{
+         		if(edition == "india")
+         		{
+         			mainMap = thisapp.Random.addTaxIDForIndianEdition(orgID,oauthtoken,fullMap,subscription,mainMap);
+         		}
+         		else if(edition == "us" || edition == "canada" || edition == "australia")
+         		{
+         			mainMap = thisapp.Random.addTaxIDForUSEdition(subscription,mainMap);
+         		}
+         		else if(edition == "uae" || edition == "saudiarabia")
+         		{
+         			mainMap = thisapp.Random.addTaxIDForUAEEdition(orgID,oauthtoken,mainMap,code);
+         		}
+         		else if(edition == "global")
+         		{
+         			if(!thisapp.Random.isTaxListEmpty(orgID,oauthtoken))
+         			{
+         				mainMap = thisapp.Random.addTaxID(orgID,oauthtoken,mainMap);
+         			}
+         		}
+         	}
+         	else if(edition == "uk")
+         	{
+         		mainMap = thisapp.Random.addTaxIDForUAEEdition(orgID,oauthtoken,mainMap,code);
+         	}
+         	return mainMap;
+         }
+				 map Random.addTaxIDForUAEEdition(string orgId, string oauthtoken, map sourceMap, string code)
+         {
+         	if(sourceMap.containKey("plan_code"))
+         	{
+         		response = thisapp.Utils.executeURL("get","plans/" + code,null,orgId,oauthtoken);
+         		planMap = response.get("plan");
+         		sourceMap.put("tax_id",planMap.get("tax_id"));
+         	}
+         	else if(sourceMap.containKey("addon_code"))
+         	{
+         		response = thisapp.Utils.executeURL("get","addons/" + code,null,orgId,oauthtoken);
+         		addonMap = response.get("addon");
+         		sourceMap.put("tax_id",addonMap.get("tax_id"));
+         	}
+         	return sourceMap;
+         }
+				 map Random.addTaxIDForUSEdition(map subscription, map newMap)
+         {
+         	customer = subscription.get("customer");
+         	taxID = customer.get("tax_id");
+         	if(taxID != null)
+         	{
+         		newMap.put("tax_id",taxID);
+         	}
+         	return newMap;
+         }
+				 string Random.chooseBillingType()
+         {
+         	type = {"fixed_cost_for_project","based_on_project_hours","based_on_staff_hours","based_on_task_hours"};
+         	return type.get(thisapp.Random.getInt(3));
+         }
+				 list Random.createDummyList(int lowerLimit, int higherLimit)
+         {
+         	count = randomNumber(lowerLimit,higherLimit);
+         	dummyList = rightpad("",count).toList("");
+         	return dummyList;
+         }
+				 map Random.createTask(string organizationID, map project)
+         {
+         	taskMap = Map();
+         	response = invokeurl
+         	[
+         		url :"https://corporatebs-generator.sameerkumar.website/"
+         		type :GET
+         	];
+         	taskName = response.get("phrase");
+         	taskMap.put("task_name",taskName + " new");
+         	if(project.get("billing_type") == "based_on_task_hours")
+         	{
+         		rate = thisapp.Random.getAmount(100);
+         		taskMap.put("rate",rate);
+         	}
+         	return taskMap;
+         }
+				 map Random.createUser(map user)
+         {
+         	info "creating a new user\n";
+         	name = user.get("name");
+         	info name.get("first");
+         	firstName = thisapp.Utils.upperCaseWords(name.get("first"));
+         	if(!name.get("last").isEmpty())
+         	{
+         		lastName = thisapp.Utils.upperCaseWords(name.get("last"));
+         	}
+         	location = user.getJSON("location");
+         	if(!location.get("street").isEmpty())
+         	{
+         		street = thisapp.Utils.upperCaseWords(location.get("street"));
+         	}
+         	if(!location.get("street").get("number").isEmpty())
+         	{
+         		street = thisapp.Utils.upperCaseWords(location.get("street").get("number") + " " + location.get("street").get("name"));
+         	}
+         	city = thisapp.Utils.upperCaseWords(location.get("city"));
+         	state = thisapp.Utils.upperCaseWords(location.get("state"));
+         	postalCode = location.get("postcode").toString();
+         	customer = Map();
+         	customer.put("first_name",firstName);
+         	if(!lastName.isEmpty())
+         	{
+         		customer.put("last_name",lastName);
+         	}
+         	customer.put("display_name",firstName + " " + lastName);
+         	customer.put("email",user.get("email"));
+         	customer.put("mobile",user.get("cell"));
+         	address = Map();
+         	address.put("country","U.S.A");
+         	address.put("state",state);
+         	address.put("city",city);
+         	info street;
+         	if(!street.isEmpty())
+         	{
+         		address.put("street",street);
+         	}
+         	address.put("zip",postalCode);
+         	customer.put("billing_address",address);
+         	customer.put("shipping_address",address);
+         	// 	orgidinput = user.get("org_id");
+         	// 	tags = Collection();
+         	// 	for each  tagform in Reporting_Tags[orgid == orgidinput && optionname == state]
+         	// 	{
+         	// 		tag = Map();
+         	// 		tag.put("tag_id",tagform.tagid);
+         	// 		tag.put("tag_option_id",tagform.optionid);
+         	// 		tags.insert(tag);
+         	// 	}
+         	// 	if(!tags.isempty())
+         	// 	{
+         	// 		customer.put("tags",tags);
+         	// 	}
+         	// 	isTaxEnabled = thisapp.Random.isTaxsEnabled(orgID,authtoken);
+         	// 		if(isTaxEnabled == true)
+         	// 		{
+         	// 			//Random Treatement for new customer
+         	// 			customer = thisapp.Random.getRandomGSTtreatment(customer);
+         	// 		}
+         	// 	info isTaxEnabled;
+         	//subscription.put("customer",customer);
+         	// 	info customer;
+         	return customer;
+         }
+				 void Random.ffff()
+         {
+         }
+				 map Random.getAddonFromPlan(string orgID, string oauthtoken, string productID, string planCode)
+         {
+         	info "getting addon from plan\n";
+         	paramsMap = Map();
+         	paramsMap.put("product_id",productID);
+         	paramsMap.put("plan_code",planCode);
+         	paramsMap.put("filter_by","AddonStatus.ACTIVE");
+         	response = thisapp.Utils.executeURL("get","addons",paramsMap,orgID,oauthtoken);
+         	addons = response.get("addons");
+         	if(addons.size() > 0)
+         	{
+         		addons = addons.toJSONList();
+         		return addons.get(thisapp.Random.getInt(addons.size()));
+         	}
+         	return null;
+         }
+				 int Random.getAmount(int limit)
+         {
+         	return zoho.currenttime.toLong() % limit;
+         }
+				 bool Random.getBoolean()
+         {
+         	return zoho.currenttime.toLong() % 2 == 1;
+         }
+				 map Random.getCancelReason(string orgID, string oauthtoken)
+         {
+         	reason = Map();
+         	isCustomReason = thisapp.Random.getBoolean();
+         	response = thisapp.Utils.executeURL("get","https://billing.localzoho.com/api/v1/settings/preferences/churnmessages",null,orgID,oauthtoken);
+         	churnMessageSettings = response.getJSON("churn_messages_settings");
+         	if(churnMessageSettings.getJSON("is_advanced_version") == "false")
+         	{
+         		isCustomReason = true;
+         	}
+         	if(isCustomReason)
+         	{
+         		randomReason = getUrl("https://loripsum.net/api/1/short");
+         		reason.put("reason",randomReason.subString(3,randomReason.length() - 4));
+         	}
+         	else
+         	{
+         		churnMessages = churnMessageSettings.getJSON("churn_messages").toJSONList();
+         		reason.put("churn_message_id",churnMessages.get(thisapp.Random.getInt(churnMessages.size())).get("churn_message_id"));
+         	}
+         	return reason;
+         }
+				 map Random.getCouponFromPlan(string orgID, string oauthtoken, string productID)
+         {
+         	paramsMap = Map();
+         	paramsMap.put("product_id",productID);
+         	paramsMap.put("filter_by","CouponStatus.ACTIVE");
+         	response = thisapp.Utils.executeURL("get","coupons",paramsMap,orgID,oauthtoken);
+         	coupons = response.get("coupons");
+         	if(coupons.size() > 0)
+         	{
+         		coupons = coupons.toJSONList();
+         		return coupons.get(thisapp.Random.getInt(coupons.size()));
+         	}
+         	return null;
+         }
+				 map Random.getCustomerCard(map customerObj, map subscription)
+         {
+         	cards = customerObj.get("cards");
+         	if(cards == null || cards.isEmpty())
+         	{
+         		billingAddress = customerObj.get("billing_address");
+         		street = billingAddress.get("street");
+         		if(street.isEmpty())
+         		{
+         			street = "{\"number\":5033,\"name\":\"green Rd\"}";
+         		}
+         		city = billingAddress.get("city");
+         		if(city.isEmpty())
+         		{
+         			city = "Lousville";
+         		}
+         		postalCode = billingAddress.get("zip");
+         		if(postalCode.isEmpty())
+         		{
+         			postalCode = "37369";
+         		}
+         		state = billingAddress.get("state");
+         		if(state.isEmpty())
+         		{
+         			state = "Missouri";
+         		}
+         		card = thisapp.Random.getRandomCard();
+         		card.put("street",street);
+         		card.put("city",city);
+         		card.put("state",state);
+         		card.put("country","U.S.A");
+         		card.put("zip",postalCode);
+         		subscription.put("card",card);
+         	}
+         	else
+         	{
+         		cards = cards.toJSONList();
+         		card = cards.get(thisapp.Random.getInt(cards.size()));
+         		subscription.put("card_id",card.get("card_id"));
+         	}
+         	return subscription;
+         }
+				 date Random.getDate()
+         {
+         	if(thisapp.Random.getBoolean())
+         	{
+         		date = zoho.currentdate.toStartOfWeek();
+         		date = date.subDay(thisapp.Random.getInt(50));
+         		date = date.subDay(150);
+         		return date;
+         	}
+         	else
+         	{
+         		date = zoho.currentdate.toStartOfWeek();
+         		date = date.subDay(thisapp.Random.getInt(100));
+         		date = date.subDay(120);
+         		return date;
+         	}
+         }
+				 map Random.getExistingCustomers(string orgID, string oauthtoken)
+         {
+         	info "getting an existing customer";
+         	response = thisapp.Utils.executeURL("get","customers",null,orgID,oauthtoken);
+         	customers = response.get("contacts");
+         	if(customers.size() > 0)
+         	{
+         		return customers.get(thisapp.Random.getInt(customers.size()));
+         	}
+         	info response.get("message");
+         	return Map();
+         }
+				 map Random.getHigherPlan(string orgID, string oauthtoken, string productID, string currentPlanPrice)
+         {
+         	params = Map();
+         	params.put("product_id",productID);
+         	response = thisapp.Utils.executeURL("get","plans",params,orgID,oauthtoken);
+         	plans = response.get("plans").toJSONList();
+         	planMap = Map();
+         	for each  plan in plans
+         	{
+         		if(plan.get("recurring_price") > currentPlanPrice)
+         		{
+         			planMap.put("plan_code",plan.get("plan_code"));
+         			planMap.put("billing_cycles","-1");
+         			planMap.put("quantity","1");
+         			// 						planMap.put("name",plan.get("name"));
+         			// 			planMap.put("recurring_price",plan.get("recurring_price"));
+         			return planMap;
+         		}
+         	}
+         	return null;
+         }
+				 int Random.getInt(int limit)
+         {
+         	return zoho.currenttime.toLong() % limit;
+         }
+				 map Random.getLineItem(int organizationID, map timeEntry, string oauthtoken)
+         {
+         	lineItemMap = Map();
+         	timeList = List();
+         	timeEntryID = timeEntry.get("time_entry_id");
+         	timeList.add(timeEntryID);
+         	timeEntryIDList = List();
+         	timeEntryIDList.add(timeEntryID);
+         	projectID = timeEntry.get("project_id");
+         	lineItemMap.put("project_id",projectID);
+         	lineItemMap.put("name",timeEntry.get("project_name"));
+         	// 		lineItemMap.put("time_entry_ids",timeList);
+         	quantity = thisapp.Utils.calculateQuantity(timeEntry);
+         	rate = thisapp.Utils.calculateRate(organizationID,projectID,timeEntry,quantity,oauthtoken);
+         	lineItemMap.put("rate",rate);
+         	lineItemMap.put("quantity",quantity);
+         	return lineItemMap;
+         }
+				 map Random.getPlanFromProduct(string orgID, string oauthtoken, string productID)
+         {
+         	response = thisapp.Utils.executeURL("get","https://billing.localzoho.com/api/v1/plans?product_id=" + productID,null,orgID,oauthtoken);
+         	plans = response.get("plans").toJSONList();
+         	return plans.get(thisapp.Random.getInt(plans.size()));
+         }
+				 list Random.getPlans(string orgID, string oauthtoken)
+         {
+         	info "selecting plans list for subscription \n";
+         	response = thisapp.Utils.executeURL("get","plans?filter_by=PlanStatus.ACTIVE",null,orgID,oauthtoken);
+         	planList = List();
+         	if(response != null)
+         	{
+         		planList = response.get("plans").toJSONList();
+         	}
+         	return planList;
+         }
+				 map Random.getProject(string organizationID, string oauthtoken)
+         {
+         	project = Map();
+         	response = invokeurl
+         	[
+         		url :"https://corporatebs-generator.sameerkumar.website/"
+         		type :GET
+         	];
+         	projectName = response.get("phrase");
+         	project.put("project_name",projectName);
+         	customer = thisapp.Random.getExistingCustomers(organizationID.toString(),oauthtoken);
+         	project.put("customer_id",customer.get("contact_id"));
+         	project.put("customer_name",customer.get("customer_name"));
+         	billingType = thisapp.Random.chooseBillingType();
+         	project.put("billing_type",billingType);
+         	project = thisapp.Random.getRate(project);
+         	project = thisapp.Utils.assignTasks(organizationID,project);
+         	project = thisapp.Utils.assignUsers(organizationID,project,oauthtoken);
+         	return project;
+         }
+				 map Random.getRandomCard()
+         {
+         	card = Map();
+         	card.put("payment_gateway","test_gateway");
+         	card.put("card_number","4111111111111111");
+         	card.put("cvv_number","111");
+         	if(thisapp.Random.getBoolean())
+         	{
+         		card.put("expiry_month",zoho.currentdate.getMonth() - 1);
+         		card.put("expiry_year",2024);
+         	}
+         	else
+         	{
+         		card.put("expiry_month",thisapp.Random.getInt(12) + 1);
+         		card.put("expiry_year",2024 + thisapp.Random.getInt(10));
+         	}
+         	return card;
+         }
+				 map Random.getRandomGSTtreatment(map customer)
+         {
+         	CategoryList = List();
+         	CategoryList.add("consumer");
+         	CategoryList.add("business_none");
+         	CategoryList.add("overseas");
+         	//CategoryList.add("deemed_export");
+         	CategoryList.add("business_gst");
+         	CategoryList.add("business_registered_composition");
+         	//CategoryList.add("business_sez");
+         	category = CategoryList.get(thisapp.Random.getInt(CategoryList.size()));
+         	if(category == "overseas")
+         	{
+         		//only gst_treatment
+         		customer.put("gst_treatment",category);
+         		//customer.put("tax_treatment",category);
+         		customer.put("category",category);
+         	}
+         	else if(category == "bussiness_none" || category == "consumer")
+         	{
+         		customer.put("gst_treatment",category);
+         		//customer.put("tax_treatment",category);
+         		customer.put("category",category);
+         		customer.put("place_of_contact","TN");
+         		//customer.put("place_of_contact_formatted","Tamilnadu");
+         		//gst_treatment,place_of_contact
+         	}
+         	else
+         	{
+         		//gst_treatment,Place_of_contact,gstin
+         		customer.put("gst_treatment",category);
+         		//customer.put("tax_treatment",category);
+         		customer.put("category",category);
+         		customer.put("place_of_contact","NL");
+         		//customer.put("place_of_contact_formatted","Tamilnadu");
+         		customer.put("gst_no","339394792794729");
+         	}
+         	// 	info "random gst treatment added \n" + customer;
+         	return customer;
+         }
+				 map Random.getRandomPlan(string orgID, string oauthtoken, map randomPlan, map subscription)
+         {
+         	info "adding addons and coupons for the plan\n";
+         	plan = Map();
+         	planCode = randomPlan.get("plan_code");
+         	plan.put("plan_code",planCode);
+         	productID = randomPlan.get("product_id");
+         	trailDays = randomPlan.get("trial_period");
+         	includeAddon = thisapp.Random.getBoolean();
+         	if(includeAddon)
+         	{
+         		randomAddon = Map();
+         		randomAddon = thisapp.Random.getAddonFromPlan(orgID,oauthtoken,productID,planCode);
+         		if(randomAddon != null)
+         		{
+         			addonMap = Map();
+         			addontype = randomAddon.get("type");
+         			if(!(addontype == "one_time" && trailDays != 0))
+         			{
+         				//one time addon cannot be add on trail plans
+         				addonMap.put("addon_code",randomAddon.get("addon_code"));
+         				if(subscription.containKey("contact") && thisapp.Random.isTaxsEnabled(orgID,oauthtoken) == true)
+         				{
+         					addonMap = thisapp.Random.addTaxIDForSubscription(orgID,oauthtoken,subscription,randomAddon,addonMap);
+         				}
+         				addonsList = List();
+         				addonsList.add(addonMap);
+         				//info "addonMap" + addonMap;
+         				subscription.put("addons",addonsList);
+         			}
+         		}
+         	}
+         	if(subscription.containKey("contact") && thisapp.Random.isTaxsEnabled(orgID,oauthtoken) == true)
+         	{
+         		plan = thisapp.Random.addTaxIDForSubscription(orgID,oauthtoken,subscription,randomPlan,plan);
+         	}
+         	//info "plan info below";
+         	//info plan + " ";
+         	isOnline = thisapp.Random.getBoolean();
+         	includeCoupon = thisapp.Random.getBoolean();
+         	subscription.put("plan",plan);
+         	subscription.put("auto_collect",isOnline);
+         	//add coupon
+         	if(includeCoupon)
+         	{
+         		randomCoupon = thisapp.Random.getCouponFromPlan(orgID,oauthtoken,productID);
+         		if(randomCoupon != null)
+         		{
+         			subscription.put("coupon_code",randomCoupon.get("coupon_code"));
+         		}
+         	}
+         	return subscription;
+         }
+				 map Random.getRandomUser(string orgID)
+         {
+         	response = getUrl("https://randomuser.me/api/?nat=us&results=1");
+         	user = response.get("results").get(0);
+         	user.put("org_id",orgID);
+         	return user;
+         }
+				 map Random.getRate(map project)
+         {
+         	if(project.get("billing_type") == "fixed_cost_for_project")
+         	{
+         		rate = thisapp.Random.getAmount(100000);
+         	}
+         	else if(project.get("billing_type") == "based_on_project_hours")
+         	{
+         		rate = thisapp.Random.getAmount(100);
+         	}
+         	project.put("rate",rate);
+         	return project;
+         }
+				 map Random.getSaudiTax(string orgId, map customer)
+         {
+         	vatList = List();
+         	vatList.add("vat_registered");
+         	vatList.add("vat_not_registered");
+         	category = vatList.get(thisapp.Random.getInt(vatList.size()));
+         	customer.put("tax_treatment",category);
+         	customer.put("country_code","SA");
+         	if(category == "vat_registered")
+         	{
+         		customer.put("tax_reg_no","100247583600003");
+         	}
+         	return customer;
+         }
+				 map Random.getUAETax(string orgId, map customer)
+         {
+         	uaeList = List();
+         	uaeList.add("AB");
+         	uaeList.add("AJ");
+         	uaeList.add("DU");
+         	uaeList.add("FU");
+         	uaeList.add("RA");
+         	uaeList.add("SH");
+         	uaeList.add("UM");
+         	vatList = List();
+         	vatList.add("vat_registered");
+         	vatList.add("vat_not_registered");
+         	vatList.add("dz_vat_registered");
+         	vatList.add("dz_vat_not_registered");
+         	randomCountry = uaeList.get(thisapp.Random.getInt(uaeList.size()));
+         	category = vatList.get(thisapp.Random.getInt(vatList.size()));
+         	customer.put("tax_treatment",category);
+         	customer.put("country_code",randomCountry);
+         	if(category == "vat_registered" || category == "dz_vat_registered")
+         	{
+         		customer.put("tax_reg_no","100247583600003");
+         	}
+         	return customer;
+         }
+				 map Random.getUser(string orgID, string oauthtoken)
+         {
+         	getExisting = thisapp.Random.getBoolean();
+         	if(getExisting)
+         	{
+         		user = thisapp.Random.getExistingCustomers(orgID,oauthtoken);
+         		if(user != null)
+         		{
+         			user.put("org_id",orgID);
+         			info "USING EXISTING CUSTOMER";
+         			return user;
+         		}
+         	}
+         	info "CREATING NEW CUSTOMER";
+         	return thisapp.Random.getRandomUser(orgID.toString());
+         }
+				 bool Random.isInternationalTradeEnabled(string orgID, string oauthtoken)
+         {
+         	responce = thisapp.Utils.executeURL("get","https://billing.localzoho.com/api/v1/organizations/",null,orgID,oauthtoken);
+         	//info responce;
+         	orgLists = List();
+         	orgLists = responce.get("organizations");
+         	for each  orgMap in orgLists
+         	{
+         		if(orgMap.get("organization_id") == orgID)
+         		{
+         			//info orgMap;
+         			isInternationalTradeEnable = orgMap.get("is_international_trade_enabled");
+         			break;
+         		}
+         	}
+         	//info isTaxRegistered;
+         	return isInternationalTradeEnable == true;
+         }
+				 bool Random.isMossEnabledForGLOBAL(string orgId, string oauthtoken)
+         {
+         	responce = thisapp.Utils.executeURL("get","https://billing.localzoho.com/api/v1/organizations/",null,orgId,oauthtoken);
+         	//info responce;
+         	orgLists = List();
+         	orgLists = responce.get("organizations");
+         	for each  orgMap in orgLists
+         	{
+         		if(orgMap.get("organization_id") == orgId)
+         		{
+         			info orgMap;
+         			isTaxRegistered = orgMap.get("is_moss_enabled");
+         			break;
+         		}
+         	}
+         	//info isTaxRegistered;
+         	return isTaxRegistered == true;
+         }
+				 bool Random.isTaxEnabledForUAE(string orgId, string oauthtoken)
+         {
+         	responce = thisapp.Utils.executeURL("get","https://billing.localzoho.com/api/v1/organizations/",null,orgId,oauthtoken);
+         	//info responce;
+         	orgLists = List();
+         	orgLists = responce.get("organizations");
+         	for each  orgMap in orgLists
+         	{
+         		if(orgMap.get("organization_id") == orgId)
+         		{
+         			info orgMap;
+         			isTaxRegistered = orgMap.get("is_tax_registered");
+         			break;
+         		}
+         	}
+         	//info isTaxRegistered;
+         	return isTaxRegistered == true;
+         }
+				 bool Random.isTaxListEmpty(string OrgId, string oauthtoken)
+         {
+         	response = thisapp.Utils.executeURL("get","settings/taxes",null,OrgId,oauthtoken);
+         	taxList = response.get("taxes");
+         	//info taxList;
+         	return taxList.isEmpty();
+         }
+				 bool Random.isTaxsEnabled(string orgID, string oauthtoken)
+         {
+         	responce = thisapp.Utils.executeURL("get","organizations/",null,orgID,oauthtoken);
+         	//info responce;
+         	orgLists = List();
+         	orgLists = responce.get("organizations");
+         	for each  orgMap in orgLists
+         	{
+         		if(orgMap.get("organization_id") == orgID)
+         		{
+         			//info orgMap;
+         			isRegisteredForTax = orgMap.get("is_registered_for_tax");
+         			isKeyPresent = orgMap.containKey("is_tax_registered");
+         			// info " is_tax_registered value present" +isKeyPresent ;
+         			isTaxRegistered = false;
+         			if(isKeyPresent)
+         			{
+         				isTaxRegistered = orgMap.get("is_tax_registered");
+         			}
+         			//info isTaxRegistered;
+         			if(isRegisteredForTax || isTaxRegistered)
+         			{
+         				return true;
+         			}
+         			break;
+         		}
+         	}
+         	//info isTaxRegistered + "is tax registered";
+         	//return isTaxRegistered == true;
+         	return false;
+         }
+				 bool Random.isVatEnabled(string OrgId, string oauthtoken)
+         {
+         	//responce = thisapp.Utils.executeURL("get","https://subscriptions.zoho.com/api/v1/o/",null,orgID,authtoken);
+         	response = thisapp.Utils.executeURL("get","https://billing.localzoho.com/api/v1/settings/vat",null,OrgId,oauthtoken);
+         	vat_settings = response.get("vat_settings");
+         	is_vat_registered = vat_settings.get("is_vat_registered");
+         	info response;
+         	return is_vat_registered;
+         }
+				 map Random.LineItem(map item, string orgID, string oauthtoken)
+         {
+         	/*
+         	line_items 
+         		[
+         			item_id
+         			rate
+         			hsn_or_sac (6 digit number)
+         			quantity
+         			tax_exemption_id
+         		]
+         	*/
+         	lineItem = Map();
+         	lineItem.put("item_id",item.get("plan_id"));
+         	lineItem.put("rate",thisapp.Random.getAmount(1000));
+         	// 	lineItem.put("hsn_or_sac","143007");
+         	lineItem.put("quantity",thisapp.Random.getInt(3) + 1);
+         	// 	lineItem.put("tax_exemption_id",thisapp.Utils.getTaxExemptionID("item",orgID,oauthtoken));
+         	return lineItem;
+         }
+				 string Utils.AcceptOrDeclineQuotes(string orgID, string oauthtoken, int estimateID)
+         {
+         	// 	estimates/151979000000118858/status/accepted
+         	if(thisapp.Random.getBoolean())
+         	{
+         		response = thisapp.Utils.executeURL("post","estimates/" + estimateID + "/status/accepted",null,orgID,oauthtoken);
+         		if(response != null)
+         		{
+         			return response.get("message");
+         		}
+         	}
+         	else
+         	{
+         		response = thisapp.Utils.executeURL("post","estimates/" + estimateID + "/status/declined",null,orgID,oauthtoken);
+         		if(response != null)
+         		{
+         			return response.get("message");
+         		}
+         	}
+         	return "";
+         }
+				 map Utils.assignTasks(string organizationID, map project)
+         {
+         	content = "";
+         	count = thisapp.Random.getInt(4);
+         	dummyList = rightpad("",count).toList("");
+         	taskList = List();
+         	for each  dummy in dummyList
+         	{
+         		taskList.add(thisapp.Random.createTask(organizationID,project));
+         	}
+         	project.put("tasks",taskList);
+         	return project;
+         }
+				 map Utils.assignUsers(string organizationID, map project, string oauthtoken)
+         {
+         	response = thisapp.Utils.executeURL("get","users",null,organizationID,oauthtoken);
+         	if(response.get("code") != 0)
+         	{
+         		sendmail
+         		[
+         			from :zoho.adminuserid
+         			to :zoho.adminuserid
+         			subject :"Error Message From assignUsers"
+         			message :"<br>Error Message:<br>" + response.get("message")
+         		]
+         	}
+         	userList = response.get("users");
+         	info userList.get(0).get("user_id");
+         	selectedUserList = List();
+         	userMap = Map();
+         	userMap.put("user_id",userList.get(0).get("user_id"));
+         	if(project.get("billing_type") == "based_on_staff_hours")
+         	{
+         		userMap.put("rate",thisapp.Random.getAmount(100));
+         	}
+         	selectedUserList.add(userMap);
+         	project.put("users",selectedUserList);
+         	return project;
+         }
+				 float Utils.calculateQuantity(map timeEntry)
+         {
+         	time = timeEntry.get("log_time");
+         	hours = getPrefix(time,":").toNumber();
+         	minutes = getSuffix(time,":").toNumber();
+         	return hours + minutes / 60;
+         }
+				 float Utils.calculateRate(int organizationID, int projectID, map timeEntry, float quantity, string oauthtoken)
+         {
+         	response = thisapp.Utils.executeURL("get","projects/" + projectID,null,organizationID.toString(),oauthtoken);
+         	project = response.get("project");
+         	billingType = project.get("billing_type");
+         	// 	info billingType;
+         	if(billingType == "fixed_cost_for_project")
+         	{
+         		return project.get("rate").toNumber();
+         	}
+         	else if(billingType == "based_on_project_hours")
+         	{
+         		return project.get("rate").toNumber() * thisapp.Utils.calculateQuantity(timeEntry);
+         	}
+         	else if(billingType == "based_on_staff_hours")
+         	{
+         		return thisapp.Utils.staffBilling(project,timeEntry.get("user_id"),quantity);
+         	}
+         	return thisapp.Utils.taskBilling(project,timeEntry.get("task_id"),quantity);
+         }
+				 string Utils.changeResourceStatus(string orgID, string oauthtoken, int resourceID, string resource, string status, map params)
+         {
+         	response = thisapp.Utils.executeURL("post",resource + "/" + resourceID + "/status/" + status,params,orgID,oauthtoken);
+         	if(response != null)
+         	{
+         		return response.get("message");
+         	}
+         	return "";
+         }
+				 string Utils.CNtoInvoice(map creditNote, string orgID, string oauthtoken)
+         {
+         	creditNoteID = creditNote.get("creditnote_id");
+         	customerID = creditNote.get("customer_id");
+         	cnAmount = creditNote.get("balance").toDecimal();
+         	params = Map();
+         	params.put("customer_id",customerID);
+         	response = thisapp.Utils.executeURL("get","invoices?page=1&per_page=200&filter_by=Status.Unpaid&sort_column=created_time&sort_order=D&usestate=true",params,orgID,oauthtoken);
+         	if(response == null)
+         	{
+         		info "No pending invoices for this customer";
+         		return "No pending invoices for this customer";
+         	}
+         	info response.get("message");
+         	invoiceList = response.get("invoices");
+         	if(invoiceList.size() < 1)
+         	{
+         		info "No pending invoices for this customer";
+         		return "No pending invoices for this customer";
+         	}
+         	info invoiceList.size();
+         	clearingInvoiceList = list();
+         	for each  invoice in invoiceList
+         	{
+         		if(cnAmount > 0)
+         		{
+         			if(cnAmount > invoice.get("balance"))
+         			{
+         				clearingInvoice = Map();
+         				clearingInvoice.put("amount_applied",invoice.get("balance"));
+         				clearingInvoice.put("invoice_id",invoice.get("invoice_id"));
+         				cnAmount = cnAmount - invoice.get("balance").toDecimal();
+         			}
+         			else
+         			{
+         				clearingInvoice = Map();
+         				clearingInvoice.put("amount_applied",cnAmount);
+         				clearingInvoice.put("invoice_id",invoice.get("invoice_id"));
+         				cnAmount = 0;
+         			}
+         			clearingInvoiceList.add(clearingInvoice);
+         		}
+         	}
+         	params = Map();
+         	params.put("invoices",clearingInvoiceList);
+         	response = thisapp.Utils.executeURL("post","creditnotes/" + creditNoteID + "/invoices",params,orgID,oauthtoken);
+         	if(response != null)
+         	{
+         		info response.get("message");
+         		return response.get("message");
+         	}
+         	return response;
+         }
+				 string Utils.constructGetUrl(string uri, map paramsMap)
+         {
+         	keyList = paramsMap.keys().toList();
+         	// 	info keyList;
+         	for each  param in keyList
+         	{
+         		uri = uri + "&" + param + "=" + paramsMap.get(param);
+         	}
+         	return uri;
+         }
+				 string Utils.createCreditNotes(string orgID, string oauthtoken)
+         {
+         	customer = thisapp.Random.getExistingCustomers(orgID,oauthtoken);
+         	customerID = customer.get("customer_id");
+         	planList = thisapp.Random.getPlans(orgID,oauthtoken);
+         	lineItems = List();
+         	dummyList = thisapp.Random.createDummyList(0,3);
+         	for each  dummy in dummyList
+         	{
+         		item = Map();
+         		selected = thisapp.Random.getInt(planList.size());
+         		plan = planList.get(selected);
+         		// 		info plan;
+         		planList.remove(selected);
+         		// 		item.put("account_id", plan.get("account_id"));
+         		item.put("name",plan.get("name"));
+         		item.put("description",plan.get("description"));
+         		item.put("rate",plan.get("recurring_price"));
+         		item.put("quantity",thisapp.Random.getInt(3) + 1.toString());
+         		item.put("code",plan.get("plan_code"));
+         		lineItems.add(item);
+         	}
+         	paramsMap = Map();
+         	paramsMap.put("customer_id",customerID);
+         	paramsMap.put("line_items",lineItems);
+         	response = thisapp.Utils.executeURL("post","creditnotes",paramsMap,orgID,oauthtoken);
+         	if(response != null)
+         	{
+         		info response.get("message");
+         		return response.get("message");
+         	}
+         	return "";
+         }
+				 string Utils.createInvoice(int organizationID, int customerID, string oauthtoken)
+         {
+         	paramsMap = Map();
+         	paramsMap.put("customer_id",customerID);
+         	todayDate = zoho.currentdate.toString("yyyy-MM-dd");
+         	paramsMap.put("date",todayDate);
+         	response = thisapp.Utils.executeURL("get","projects/timeentries?customer_id=" + customerID,null,organizationID.toString(),oauthtoken);
+         	timeEntriesList = response.get("time_entries");
+         	if(timeEntriesList.isEmpty())
+         	{
+         		return "";
+         	}
+         	lineItemList = List();
+         	// 	info timeEntriesList;
+         	for each  timeEntry in timeEntriesList
+         	{
+         		// 		info timeEntry+"\n";
+         		lineItemMap = Map();
+         		lineItemMap = thisapp.Random.getLineItem(organizationID,timeEntry,oauthtoken);
+         		lineItemList.add(lineItemMap);
+         	}
+         	paramsMap.put("line_items",lineItemList);
+         	// 	info paramsMap;
+         	response = thisapp.Utils.executeURL("post","invoices",paramsMap,organizationID.toString(),oauthtoken);
+         	// 	info response.get("message");
+         	if(response.get("code") == 0)
+         	{
+         		info "invoice generated";
+         	}
+         	return response.get("message");
+         }
+				 string Utils.createProject(string organizationID, string oauthtoken)
+         {
+         	project = Map();
+         	project = thisapp.Random.getProject(organizationID,oauthtoken);
+         	response = thisapp.Utils.executeURL("post","projects",project,organizationID,oauthtoken);
+         	code = response.get("code");
+         	if(code == 0)
+         	{
+         		info response.get("message");
+         	}
+         	else
+         	{
+         		sendmail
+         		[
+         			from :zoho.adminuserid
+         			to :"sathiya.jothi@zohocorp.com"
+         			subject :"error while creating invoice"
+         			message :response.get("message").toString()
+         		]
+         	}
+         	return response.get("message");
+         }
+				 string Utils.createQuotes(string orgID, string oauthtoken)
+         {
+         	customer = thisapp.Random.getExistingCustomers(orgID,oauthtoken);
+         	paramsMap = Map();
+         	customerID = customer.get("customer_id");
+         	// 	if(customer.get("place_of_contact") != null)
+         	// 	{
+         	// 		placeOfContact = customer.get("place_of_contact");
+         	// 	}
+         	// 	else
+         	// 	{
+         	// 		placeOfContact = "TN";
+         	// 	}
+         	// 	if(customer.get("gst_treatment") != null)
+         	// 	{
+         	// 		gstTreatment = customer.get("gst_treatment");
+         	// 		if(customer.get("gst_no") == null)
+         	// 		{
+         	// 			gstNo = "123456789654678";
+         	// 		}
+         	// 		else
+         	// 		{
+         	// 			gstNo = customer.get("gst_no");
+         	// 		}
+         	// 	}
+         	// 	else
+         	// 	{
+         	// 		gstTreatment = "consumer";
+         	// 	}
+         	// 	taxExemptionId = thisapp.Utils.getTaxExemptionID("customer",orgID,oauthtoken);
+         	paramsMap.put("customer_id",customerID);
+         	// 	paramsMap.put("place_of_contact",placeOfContact);
+         	// 	paramsMap.put("gst_treatment",gstTreatment);
+         	// 	paramsMap.put("gst_no",gstNo);
+         	// 	paramsMap.put("tax_exemption_id",taxExemptionId);
+         	if(thisapp.Random.getBoolean())
+         	{
+         		paramsMap.put("expiry_date",zoho.currentdate.eomonth(thisapp.Random.getInt(3)).toString("yyyy-MM-dd"));
+         	}
+         	lineItemList = thisapp.Utils.getLineItemListforQuote(orgID,oauthtoken);
+         	if(lineItemList != null || !lineItemList.isempty())
+         	{
+         		paramsMap.put("line_items",lineItemList);
+         		// 	info paramsMap;
+         		response = thisapp.Utils.executeURL("post","estimates",paramsMap,orgID,oauthtoken);
+         		return response.get("message");
+         	}
+         	return "";
+         }
+				 string Utils.createTimeLog(int organizationID, map project, string oauthtoken)
+         {
+         	projectID = project.get("project_id");
+         	response = thisapp.Utils.executeURL("get","projects/" + projectID + "/tasks",null,organizationID.toString(),oauthtoken);
+         	taskList = response.get("task");
+         	response = thisapp.Utils.executeURL("get","projects/" + projectID + "/users",null,organizationID.toString(),oauthtoken);
+         	userList = response.get("users");
+         	for each  task in taskList
+         	{
+         		taskID = task.get("task_id");
+         		user = userList.get(0);
+         		// 		info "user--->" + user;
+         		userID = user.get("user_id");
+         		hours = thisapp.Random.getInt(3);
+         		minutes = thisapp.Random.getInt(59);
+         		if(minutes < 10)
+         		{
+         			logTime = "0" + hours + ":0" + minutes;
+         		}
+         		else
+         		{
+         			logTime = "0" + hours + ":" + minutes;
+         		}
+         		logDate = thisapp.Random.getDate().toString("yyyy-dd-MM");
+         		taskMap = Map();
+         		taskMap.put("project_id",projectID);
+         		taskMap.put("task_id",taskID);
+         		taskMap.put("user_id",userID);
+         		taskMap.put("log_time",logTime);
+         		taskMap.put("log_date",logDate);
+         		response = thisapp.Utils.executeURL("post","projects/timeentries",taskMap,organizationID.toString(),oauthtoken);
+         		if(response != null)
+         		{
+         			code = response.get("code");
+         			info response.get("message");
+         		}
+         	}
+         	return "";
+         }
+				 map Utils.Decrement_Month()
+         {
+         	currentMonth = zoho.currentdate.getMonth();
+         	if(currentMonth == 1)
+         	{
+         		DecrementedMonth = 12;
+         	}
+         	else
+         	{
+         		DecrementedMonth = zoho.currentdate.getMonth() - 1;
+         	}
+         	if(!DecrementedMonth > 9)
+         	{
+         		start_date = zoho.currentdate.toString("yyyy-" + "0" + DecrementedMonth + "-dd");
+         		endDate1 = eomonth(zoho.currentdate,0).toString("yyyy-" + "0" + DecrementedMonth + "-dd");
+         	}
+         	else
+         	{
+         		start_date = zoho.currentdate.toString("yyyy-" + DecrementedMonth + "-dd");
+         		endDate1 = eomonth(zoho.currentdate,0).toString("yyyy-" + DecrementedMonth + "-dd");
+         	}
+         	LastMonth = Map();
+         	LastMonth.put("startDate",start_date);
+         	LastMonth.put("endDate",endDate1);
+         	Last_date = zoho.currentdate.subDay(30);
+         	info Last_date;
+         	date = Last_date.toString("yyyy-MM-dd");
+         	endDate = eomonth(Last_date,0).toString("yyyy-MM-dd");
+         	info "dat" + date + " , " + endDate;
+         	return LastMonth;
+         }
+				 map Utils.executeURL(string method, string uri, map paramsMap, string orgid, string oauthtoken)
+         {
+         	reqUrl = "https://advancedbilling.localzoho.com/api/v3/";
+         	if(uri.contains("?"))
+         	{
+         		reqUrl = reqUrl + uri + "&organization_id=" + orgid;
+         	}
+         	else
+         	{
+         		reqUrl = reqUrl + uri + "?organization_id=" + orgid;
+         	}
+         	headerMap = Map();
+         	//headerMap.put("X-com-zoho-subscriptions-organizationid",orgid);
+         	headerMap.put("Authorization","Zoho-oauthtoken " + oauthtoken);
+         	if(method == "post" || method == "POST")
+         	{
+         		response = postUrl(reqUrl,paramsMap.toString(),headerMap);
+         	}
+         	else if(method == "get" || method == "GET")
+         	{
+         		if(paramsMap.isEmpty())
+         		{
+         			response = getUrl(reqUrl,headerMap);
+         		}
+         		else
+         		{
+         			reqUrl = thisapp.Utils.constructGetUrl(reqUrl,paramsMap);
+         			response = getUrl(reqUrl,headerMap);
+         		}
+         	}
+         	else if(method == "put" || method == "PUT")
+         	{
+         		response = invokeurl
+         		[
+         			url :reqUrl
+         			type :PUT
+         			parameters:paramsMap.toString()
+         			headers:headerMap
+         		];
+         	}
+         	if(response == null)
+         	{
+         		info "response is null";
+         		errorMessage = "Method " + method + " Not implemented";
+         	}
+         	else
+         	{
+         		if(response.get("code") == 0)
+         		{
+         			return response;
+         		}
+         		else
+         		{
+         			errorMessage = response.get("message");
+         		}
+         	}
+         	if(errorMessage != null)
+         	{
+         		info errorMessage;
+         		sendmail
+         		[
+         			from :zoho.adminuserid
+         			to :"sathiya.jothi@zohotest.com"
+         			subject :"Error Message From Execute Url"
+         			message :"Affected URL:<br>" + reqUrl + "<br>error Message:<br>" + errorMessage + "<br>response :<br>" + response + "<br>paramsMap<br> : " + paramsMap
+         		]
+         	}
+         	return null;
+         }
+				 map Utils.getCustomerDetails(string orgID, string oauthtoken, string customerID)
+         {
+         	info "retrieving the existing customer object";
+         	response = thisapp.Utils.executeURL("get","contacts/" + customerID,null,orgID,oauthtoken);
+         	return response.get("contact");
+         }
+				 list Utils.getLineItemListforQuote(string orgID, string oauthtoken)
+         {
+         	lineItemList = List();
+         	response = thisapp.Utils.executeURL("get","plans",null,orgID,oauthtoken);
+         	items = response.get("plans");
+         	count = thisapp.Random.getInt(3);
+         	dummyList = rightpad("",count).toList("");
+         	for each  dummy in dummyList
+         	{
+         		if(!items.isempty())
+         		{
+         			lineItem = Map();
+         			select = thisapp.Random.getInt(items.size());
+         			selectedItem = items.get(select);
+         			lineItem = thisapp.Random.LineItem(selectedItem,orgID.toString(),oauthtoken);
+         			items.remove(select);
+         			lineItemList.add(lineItem);
+         		}
+         	}
+         	return lineItemList;
+         }
+				 string Utils.getOrgVersion(string orgID, string oauthtoken)
+         {
+         	resp = thisapp.Utils.executeURL("get","organizations/" + orgID,null,orgID,oauthtoken);
+         	orgdetail = resp.get("organization");
+         	version = orgdetail.get("version");
+         	//info "org version is " + " " + version;
+         	return version;
+         }
+				 list Utils.getResourceByStatus(string orgID, string oauthtoken, string resource, string status)
+         {
+         	response = thisapp.Utils.executeURL("get",resource + "?page=1&per_page=200&filter_by=Status." + status,null,orgID,oauthtoken);
+         	if(response != null)
+         	{
+         		return response.get(resource);
+         	}
+         	info "no " + resource + " available :" + response;
+         	return response;
+         }
+				 list Utils.getSubscriptionList(string orgID, string oauthtoken)
+         {
+         	startDate = zoho.currentdate.subDay(10);
+         	endDate = eomonth(startDate,0).toString("yyyy-MM-dd");
+         	startDate = startDate.toString("yyyy-MM-dd");
+         	if(startDate == endDate)
+         	{
+         		startDate = zoho.currentdate.subDay(5);
+         		endDate = eomonth(startDate,0).toString("yyyy-MM-dd");
+         		startDate = startDate.toString("yyyy-MM-dd");
+         	}
+         	// 	paramsMap = Map();
+         	// 	paramsMap.put("from_date",startDate);
+         	// 	paramsMap.put("to_date",endDate);
+         	// 	info "start date";
+         	// 	info startDate;
+         	// 	info "end date";
+         	// 	info endDate;
+         	paramsMap = Map();
+         	// 	paramsMap.put("from_date",startDate);
+         	// 	paramsMap.put("to_date",endDate);
+         	paramsMap.put("created_date_start",startDate);
+         	paramsMap.put("created_date_end",endDate);
+         	response = thisapp.Utils.executeURL("get","subscriptions?filter_by=SubscriptionStatus.LIVE&page=1&per_page=200&sort_column=created_at&sort_order=D&response_option=0",null,orgID,oauthtoken);
+         	// 		info response;
+         	if(response != null)
+         	{
+         		subscriptions = response.get("subscriptions").toJSONList();
+         		return subscriptions;
+         	}
+         	//info subscriptions;
+         	return null;
+         }
+				 list Utils.getSubscriptions(string orgID, string oauthtoken, string status, string dateParam)
+         {
+         	startDate = zoho.currentdate.subDay(10);
+         	endDate = eomonth(startDate,0).toString("yyyy-MM-dd");
+         	startDate = startDate.edate(-2).toString("yyyy-MM-dd");
+         	if(startDate == endDate)
+         	{
+         		startDate = zoho.currentdate.subDay(5);
+         		endDate = eomonth(startDate,0).toString("yyyy-MM-dd");
+         		startDate = startDate.toString("yyyy-MM-dd");
+         	}
+         	paramsMap = Map();
+         	paramsMap.put("page","1");
+         	paramsMap.put("per_page","200");
+         	paramsMap.put("sort_column","created_at");
+         	paramsMap.put("sort_order","D");
+         	paramsMap.put("response_option","0");
+         	paramsMap.put("status",status);
+         	paramsMap.put(dateParam + "_date_start",startDate);
+         	paramsMap.put(dateParam + "_date_end",endDate);
+         	info "start date";
+         	info startDate;
+         	info "end date";
+         	info endDate;
+         	response = thisapp.Utils.executeURL("get","subscriptions",paramsMap,orgID,oauthtoken);
+         	subscriptions = response.get("subscriptions").toJSONList();
+         	//info subscriptions;
+         	return subscriptions;
+         }
+				 string Utils.getTaxExemptionID(string type, string orgID, string oauthtoken)
+         {
+         	response = thisapp.Utils.executeURL("get","settings/taxexemptions",null,orgID,oauthtoken);
+         	// 	info response;
+         	taxExemptionList = response.get("tax_exemptions");
+         	for each  taxExemption in taxExemptionList
+         	{
+         		if(taxExemption.get("type") == type)
+         		{
+         			return taxExemption.get("tax_exemption_id");
+         		}
+         	}
+         	info "cofigure tax exemption id !";
+         	return "";
+         }
+				 string Utils.QuotesToInvoice(int orgID, string oauthtoken, int estimateID)
+         {
+         	response = thisapp.Utils.executeURL("get","estimates/" + estimateID,null,orgID.toString(),oauthtoken);
+         	selectedEstimate = response.get("estimate");
+         	// 	info selectedEstimate;
+         	paramsMap = Map();
+         	paramsMap.put("customer_id",selectedEstimate.get("customer_id"));
+         	lineItemsList = selectedEstimate.get("line_items");
+         	newLineItems = List();
+         	// 	tax_specification":"intra","is_taxable":true,"gst_no":"23IN45K48893J23","contact_category":"business_gst","gst_treatment":"business_gst","tax_treatment":"business_gst"
+         	// 	paramsMap.put("tax_specification", selectedEstimate.get("tax_specification"));
+         	// 	paramsMap.put("is_taxable", selectedEstimate.get("is_taxable"));
+         	// 	paramsMap.put("gst_no", selectedEstimate.get("gst_non"));
+         	// 	paramsMap.put("contact_category", selectedEstimate.get("contact_category"));
+         	// 	paramsMap.put("gst_treatment", selectedEstimate.get("gst_treatment"));
+         	// 	paramsMap.put("tax_treatment", selectedEstimate.get("tax_treatment"));
+         	// 	paramsMap.put("is_inclusive_tax",false);
+         	// 	paramsMap.put("tax_exemption_id",thisapp.Utils.getTaxExemptionID("customer",orgID.toString(),oauthtoken));
+         	for each  lineItem in lineItemsList
+         	{
+         		item = Map();
+         		item.put("item_id",lineItem.get("item_id"));
+         		item.put("rate",lineItem.get("rate"));
+         		item.put("quantity",lineItem.get("quantity"));
+         		newLineItems.add(item);
+         	}
+         	paramsMap.put("line_items",newLineItems);
+         	paramsMap.put("invoiced_estimate_id",estimateID);
+         	info paramsMap;
+         	response = thisapp.Utils.executeURL("post","invoices",paramsMap,orgID.toString(),oauthtoken);
+         	info response.get("message");
+         	return "";
+         }
+				 string Utils.ResourceStatusSent(string orgID, string oauthtoken, map paramsMap, string resource)
+         {
+         	headerMap = Map();
+         	//headerMap.put("X-com-zoho-subscriptions-organizationid",orgid);
+         	headerMap.put("Authorization","Zoho-oauthtoken " + oauthtoken);
+         	response = invokeurl
+         	[
+         		url :"https://billing.localzoho.com/api/v3/" + resource + "/status/sent?organization_id=" + orgID
+         		type :POST
+         		parameters:paramsMap
+         		headers:headerMap
+         	];
+         	if(response != null)
+         	{
+         		return response.get("message");
+         	}
+         	return "";
+         }
+				 float Utils.staffBilling(map project, int userID, float quantity)
+         {
+         	userList = project.get("users").toList();
+         	for each  user in userList
+         	{
+         		if(user.get("user_id") == userID)
+         		{
+         			return quantity * user.get("rate");
+         		}
+         	}
+         	return 0.0;
+         }
+				 float Utils.taskBilling(map project, int taskID, float quantity)
+         {
+         	taskList = project.get("tasks").toList();
+         	for each  task in taskList
+         	{
+         		if(task.get("task_id") == taskID)
+         		{
+         			return quantity * task.get("rate");
+         		}
+         	}
+         	return 0.0;
+         }
+				 string Utils.upperCaseWords(string sentence)
+         {
+         	info sentence;
+         	words = sentence.toList(" ");
+         	for each  word in words
+         	{
+         		sentence = sentence + word.substring(0,1).toUpperCase();
+         		sentence = sentence + word.substring(1).toLowerCase();
+         		sentence = sentence + " ";
+         	}
+         	return sentence.trim();
+         }
+			 }
+		 }
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Create_record_scripts1 as "Create record scripts"
+			{
+				type =  form
+				form = Org_Details
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											orgID = input.Org_ID;
+										input.Authtoken = input.Authtoken;
+										orgName = input.Org_Name;
+										thisapp.populateData(orgID,input.Refresh_token,input.Client_ID,input.Client_Secret,orgName);
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Custom_Schedule as "Custom Schedule"
+			{
+				type =  schedule
+				start = "2018-07-27 18:30:00"
+				frequency = daily
+				time zone = "IST"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  org in Org_Details[Refresh_token != ""]
+										{
+											content = "";
+											if(org.Org_ID == 65650923)
+											{
+												thisapp.populateData(org.Org_ID,org.Refresh_token,org.Client_ID,org.Client_Secret);
+											}
+										}
+					)
+					}
+				}
+			}
+			Daily_Schedule as "Daily Schedule"
+			{
+				type =  schedule
+				start = "2021-11-11 06:00:00"
+				frequency = daily
+				time zone = "IST"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  org in Org_Details[Refresh_token != ""]
+										{
+											content = "";
+											if(org.Org_ID == 65650923)
+											{
+												thisapp.populateData(org.Org_ID,org.Refresh_token,org.Client_ID,org.Client_Secret);
+											}
+										}
+					)
+					}
+				}
+			}
+			Populate_Payments as "Populate Payments"
+			{
+				type =  schedule
+				start = "2023-03-14 12:00:00"
+				frequency = daily
+				time zone = "IST"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  org in Org_Details[Refresh_token != ""]
+										{
+											content = "";
+											if(org.Org_ID == 65650923)
+											{
+												thisapp.populateData(org.Org_ID,org.Refresh_token,org.Client_ID,org.Client_Secret);
+											}
+										}
+					)
+					}
+				}
+			}
+			projects_actions as "projects actions"
+			{
+				type =  schedule
+				start = "2023-07-05 00:00:00"
+				frequency = daily
+				time zone = "IST"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  org in Org_Details[Refresh_token != ""]
+										{
+											content = "";
+											if(org.Org_ID == 65650923)
+											{
+												thisapp.populateData(org.Org_ID,org.Refresh_token,org.Client_ID,org.Client_Secret);
+											}
+										}
+					)
+					}
+				}
+			}
+			mrng as "mrng"
+			{
+				type =  schedule
+				start = "2023-07-05 08:14:44"
+				frequency = daily
+				time zone = "IST"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  org in Org_Details[Refresh_token != ""]
+										{
+											content = "";
+											if(org.Org_ID == 65650923)
+											{
+												thisapp.populateData(org.Org_ID,org.Refresh_token,org.Client_ID,org.Client_Secret);
+											}
+										}
+					)
+					}
+				}
+			}
+			noon as "noon"
+			{
+				type =  schedule
+				start = "2023-07-04 16:15:32"
+				frequency = daily
+				time zone = "IST"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  org in Org_Details[Refresh_token != ""]
+										{
+											content = "";
+											if(org.Org_ID == 65650923)
+											{
+												thisapp.populateData(org.Org_ID,org.Refresh_token,org.Client_ID,org.Client_Secret);
+											}
+										}
+					)
+					}
+				}
+			}
+			W10 as "10"
+			{
+				type =  schedule
+				start = "2023-07-05 10:00:35"
+				frequency = daily
+				time zone = "IST"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  org in Org_Details[Refresh_token != ""]
+										{
+											content = "";
+											if(org.Org_ID == 65650923)
+											{
+												thisapp.populateData(org.Org_ID,org.Refresh_token,org.Client_ID,org.Client_Secret);
+											}
+										}
+					)
+					}
+				}
+			}
+		}
+
+
+
+		functions
+		{
+			DoAllActions as "DoAllActions"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+					status = inactive
+				on start
+				{
+				}
+			}
+			Create_Subscription as "Create Subscription"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateCreateSubscription(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			EditSubscription as "EditSubscription"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+				}
+			}
+			CancelSubscription as "CancelSubscription"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateCancelSubscription(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			CheckConnection as "UpgradeSubscription"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateUpgradeSubscription(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			fillReportingTags as "fillReportingTags"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+					on click
+					(
+						input.Refresh_token = input.Refresh_token;
+										input.Client_ID = input.Client_ID;
+										input.Client_Secret = input.Client_Secret;
+										oauthtoken = thisapp.generateAccesstoken(input.Refresh_token,input.Client_ID,input.Client_Secret);
+										response = thisapp.Utils.executeURL("get","https://subscriptionstest.localzoho.com/api/v1/settings/tags",null,input.Org_ID.toString(),oauthtoken);
+										reportingtags = response.get("reporting_tags").toJSONList();
+										stringorgid = input.Org_ID + "";
+										delete from Reporting_Tags[orgid == stringorgid];
+										for each  tag in reportingtags
+										{
+											tagresponse = thisapp.Utils.executeURL("get","https://subscriptionstest.localzoho.com/api/v1/settings/tags/" + tag.get("tag_id"),null,input.Org_ID.toString(),oauthtoken);
+											reportingtag = tagresponse.get("reporting_tag");
+											tagid = reportingtag.get("tag_id");
+											tagname = reportingtag.get("tag_name");
+											tagoptions = reportingtag.get("tag_options").toJSONList();
+											for each  tagoption in tagoptions
+											{
+												tagoptionid = tagoption.get("tag_option_id");
+												tagoptionname = tagoption.get("tag_option_name");
+												insert into Reporting_Tags
+												[
+													Added_User=zoho.loginuser
+													orgid=input.Org_ID
+													tagid=tagid
+													tagname=tagname
+													optionid=tagoptionid
+													optionname=tagoptionname
+												]
+											}
+										}
+										info reportingtags;
+					)
+					}
+				}
+			}
+			populatePayments as "populatePayments"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+				}
+			}
+			CreateProject as "CreateProject"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateProjects(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			AddTimelogs as "AddTimelogs"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateTimeLogs(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			InvoiceTimesheets as "InvoiceTimesheets"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+				}
+			}
+			InvoiceTimesheets1 as "InvoiceTimesheets"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateInvoice(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			CreateQuotes as "CreateQuotes"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateQuotes(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			SendQuotes as "SendQuotes"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateQuotes_markAsSent(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			AcceptOrDeclineQuotes as "AcceptOrDeclineQuotes"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateQuotes_AcceptOrDecline(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			InvoiceQuotes as "InvoiceQuotes"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.PopulateQuoteToInvoice(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			CreateCreditnotes as "CreateCreditnotes"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateCreditNotes(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			InvoiceCreditnotes as "InvoiceCreditnotes"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateCNtoInvoice(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			RecordPayments as "RecordPayments"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateRecordPayment(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			sendInvoice as "sendInvoice"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateInvoice_markAssent(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			VoidInvoice as "VoidInvoice"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateInvoice_void(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			writeoffInvoice as "writeoffInvoice"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateInvoice_writeOff(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+			Upgradesubscription as "Upgradesubscription"
+			{
+				type =  functions
+				form = Org_Details
+				execution type = for each record	
+				on start
+				{
+					actions 
+					{
+						thisapp.populateUpgradeSubscription(Org_ID,Refresh_token,Client_ID,Client_Secret);
+					}
+				}
+			}
+		}
+	}
+	share_settings
+	{
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"User"
+			{
+				name = "User"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile only have add and view permission.\n"
+				ModulePermissions
+				{
+					Org_Details
+					{
+						enabled= Create,Viewall,Tab 
+						FieldPermissions
+						{
+							Org_Name{visibility:true,readonly:false}
+							Refresh_token{visibility:false,readonly:false}
+							Org_ID{visibility:true,readonly:false}
+							Client_Secret{visibility:false,readonly:false}
+							Access_Token{visibility:false,readonly:false}
+							Authtoken{visibility:true,readonly:false}
+							Client_ID{visibility:false,readonly:false}
+							Section{visibility:true,readonly:false}
+							EnabledTags{visibility:false,readonly:false}
+						}
+					}
+				}
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users.\n\n"
+					"Manager"
+					{
+						description = "Users belonging to this role cannot see admin role users data.\n\n"
+						"Employee"
+						{
+							description = "Reports to Manager\n\n"
+						}
+					}
+				}
+			}
+	}
+
+	customize
+	{
+		
+		layout = "tab"
+		color = "black"
+		base theme = "professional"
+		new theme = 1
+		font = "lato"
+		color options
+    	{
+        color = "1"
+    	}
+    	logo
+    	{
+        	preference = "none"
+        	placement = "left"
+    	}
+	}
+
+
+	phone
+	{
+		customize
+		{
+        	layout = slidingpane
+        	font = "default"
+            style = "1"
+        	color options
+        	{
+             	color = darkgrey
+         	}
+         	logo
+         	{
+             	preference = "none"
+         	}
+		}
+	}
+	tablet
+	{
+		customize
+		{
+        	layout = slidingpane
+        	font = "default"
+            style = "1"
+        	color options
+        	{
+             	color = darkgrey
+         	}
+         	logo
+         	{
+             	preference = "none"
+         	}
+		}
+	}
+	
+}
